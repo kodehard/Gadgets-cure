@@ -1,4 +1,4 @@
-package com.delaroystudios.carddemo;
+package sugoi.android.amazfun;
 
 /**
  * Created by Shade on 5/9/2016.
@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
