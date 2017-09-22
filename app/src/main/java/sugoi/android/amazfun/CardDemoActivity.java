@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 
 public class CardDemoActivity extends AppCompatActivity {
@@ -18,7 +17,7 @@ public class CardDemoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_demo);
-        tool_bar = (Toolbar) findViewById(R.id.toolbar);
+        tool_bar = (Toolbar) findViewById(R.id.tool_bar);
         tool_bar.setTitle("Deets");
         setSupportActionBar(tool_bar);
 

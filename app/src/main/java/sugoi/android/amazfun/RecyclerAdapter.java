@@ -22,13 +22,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             "Strange business strategies?",
             "Mind blowing decisions?",
             "How did you start at amazon?",
-            "Experience at amazon?",};
+            "Experience at amazon?","How is Amazon better than Flipcart?",
+            "How to develop a Brand?"
+    };
 
     private String[] details = {"It is tricky at times to expand a business..",
             "Branding is quality assurance, whereas..", "If I start shelling out strategies soon..",
             "Meet Ram, he has a turnover of ru..", "I saw a person doing weird advertising..",
             "A decision I took, turned the tides..", "Now when I see amazon, I feel like..",
-            "Woah! way better than westros.."};
+            "Woah! way better than westros..","Now demands more controversy and then eve..",
+            "It is sometimes very difficult to focus on.. "
+    };
 
     private int[] images = { R.drawable.jorah,
             R.drawable.dany,
@@ -37,7 +41,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             R.drawable.little,
             R.drawable.jon,
             R.drawable.night,
-            R.drawable.jaime };
+            R.drawable.jaime,R.drawable.sam,R.drawable.olenna};
+
+    private String[] names={"Ser Jorah Mormont","Daenerys Targareyn",
+            "Arya Stark","Tyrion Lannister","Loard Baelish","Jon Snow",
+            "Long Night","Jamie Lannister","Samwell Tarly","Olenna Tyrel"};
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -45,14 +53,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         public ImageView itemImage;
         public TextView itemTitle;
         public TextView itemDetail;
-
+        public TextView itemName;
         public ViewHolder(View itemView) {
             super(itemView);
             itemImage = (ImageView)itemView.findViewById(R.id.item_image);
             itemTitle = (TextView)itemView.findViewById(R.id.item_title);
-            itemDetail =
-                    (TextView)itemView.findViewById(R.id.item_detail);
-
+            itemDetail =(TextView)itemView.findViewById(R.id.item_detail);
+            itemName=(TextView) itemView.findViewById(R.id.name);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     int position = getAdapterPosition();
@@ -79,6 +86,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         viewHolder.itemTitle.setText(titles[i]);
         viewHolder.itemDetail.setText(details[i]);
         viewHolder.itemImage.setImageResource(images[i]);
+        viewHolder.itemName.setText(names[i]);
     }
 
     @Override
