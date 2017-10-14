@@ -37,8 +37,9 @@ public class CardDemoActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         layoutManager = new LinearLayoutManager(this);
+        //recyclerView.setLayoutManager(layoutManager);
         recyclerView.setLayoutManager(layoutManager);
-
+        recyclerView.setNestedScrollingEnabled(false);
         adapter = new RecyclerAdapter();
         recyclerView.setAdapter(adapter);
     }
