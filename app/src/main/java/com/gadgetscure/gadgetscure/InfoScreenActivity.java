@@ -1,8 +1,10 @@
 package com.gadgetscure.gadgetscure;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -11,9 +13,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class InfoScreenActivity extends AppCompatActivity {
-   public String device_issue,problem,cost;
+   public String device_issue,problem,cost,message;
 
 
     @Override
@@ -21,7 +24,7 @@ public class InfoScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_screen);
         Toolbar toolbar;
-        toolbar=(Toolbar) findViewById(R.id.infotoolbar);
+        toolbar = (Toolbar) findViewById(R.id.infotoolbar);
         toolbar.setTitle("Booking Info");
         toolbar.setTitleTextColor(Color.WHITE);
 
@@ -31,30 +34,30 @@ public class InfoScreenActivity extends AppCompatActivity {
         device_issue = device_issue.substring(0, device_issue.length() - 1);
 
         problem = extras.getString("Problem");
-         cost=extras.getString("Price");
+        cost = extras.getString("Price");
 
         TextView deviceissue = (TextView) findViewById(R.id.problem);
         TextView problem_type = (TextView) findViewById(R.id.problemtype);
-        TextView price =(TextView) findViewById(R.id.price);
+        TextView price = (TextView) findViewById(R.id.price);
         deviceissue.setText(device_issue);
         problem_type.setText(problem);
         price.setText(cost);
 
 
-        Button msg =(Button) findViewById(R.id.msg);
+        Button msg = (Button) findViewById(R.id.msg);
 
         msg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText name =(EditText) findViewById(R.id.user_name);
-                EditText address =(EditText) findViewById(R.id.address);
-                EditText phone =(EditText) findViewById(R.id.phone_num);
-               String Name=name.getText().toString();
+                EditText name = (EditText) findViewById(R.id.user_name);
+                EditText address = (EditText) findViewById(R.id.address);
+                EditText phone = (EditText) findViewById(R.id.phone_num);
+                String Name = name.getText().toString();
 
-               String Address=address.getText().toString();
-                String Phone =phone.getText().toString();
-                String message="Name : "+Name+"\n Address : "+Address+"\n Phone number : "+Phone+"\n Device : "+device_issue
-                        +"\n Problem : "+problem+"\n Inspection Charges : "+cost;
+                String Address = address.getText().toString();
+                String Phone = phone.getText().toString();
+                String message = "Name : " + Name + "\n Address : " + Address + "\n Phone number : " + Phone + "\n Device : " + device_issue
+                        + "\n Problem : " + problem + "\n Inspection Charges : " + cost;
 
                 Intent i = new Intent(Intent.ACTION_SENDTO);
                 i.setData(Uri.parse("mailto:"));
@@ -69,11 +72,15 @@ public class InfoScreenActivity extends AppCompatActivity {
 
 
 
-
             }
         });
+    }
+
+
+
+
 
 
 
     }
-}
+

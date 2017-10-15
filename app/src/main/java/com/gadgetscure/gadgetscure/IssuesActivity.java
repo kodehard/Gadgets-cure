@@ -76,8 +76,11 @@ public class IssuesActivity extends Activity {
                 if(child != null && gestureDetector.onTouchEvent(e)) {
                     int position = rv.getChildAdapterPosition(child);
                     context=rv.getContext();
+
+
                     Intent i = new Intent(context, InfoScreenActivity.class);
                     Bundle extras = new Bundle();
+
 
 
                     extras.putString("Issue",issue+" issues");
