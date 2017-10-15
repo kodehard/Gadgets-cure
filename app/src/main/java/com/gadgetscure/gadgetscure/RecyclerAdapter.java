@@ -6,6 +6,7 @@ package com.gadgetscure.gadgetscure;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -66,7 +67,13 @@ Context context;
                   int position = getAdapterPosition();
                   context=v.getContext();
                    Intent i = new Intent(context, CardDemoActivity.class);
-                  i.putExtra("Issue",names[position]);
+                 // i.putExtra("Issue",names[position]);
+                  Bundle extras = new Bundle();
+
+
+                  extras.putString("Issue",names[position]);
+                  extras.putString("Price",details[position]);
+                  i.putExtras(extras);
                     context.startActivity(i);
 
 

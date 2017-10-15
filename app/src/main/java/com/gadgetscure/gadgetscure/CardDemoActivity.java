@@ -1,6 +1,7 @@
 package com.gadgetscure.gadgetscure;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -20,8 +21,9 @@ import static com.gadgetscure.gadgetscure.R.id.toolbar;
 
 public class CardDemoActivity extends Activity {
     Toolbar toolbar;
-    String issue;
+    String issue,price;
     private ArrayList<String> issues;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +31,10 @@ public class CardDemoActivity extends Activity {
         setContentView(R.layout.activity_main);
         Intent i= getIntent();
         Bundle b = i.getExtras();
+        issue=b.getString("Issue");
+        price=b.getString("Price");
 
-        if(b!=null)
-        {
-            issue =(String) b.get("Issue");
-
-        }
-
-                issue = issue.substring(0, issue.length() - 1);
+        issue = issue.substring(0, issue.length() - 1);
 
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -81,7 +79,18 @@ public class CardDemoActivity extends Activity {
                 View child = rv.findChildViewUnder(e.getX(), e.getY());
                 if(child != null && gestureDetector.onTouchEvent(e)) {
                     int position = rv.getChildAdapterPosition(child);
-                    Toast.makeText(getApplicationContext(), issues.get(position), Toast.LENGTH_SHORT).show();
+                    context=rv.getContext();
+                    Intent i = new Intent(context, InfoScreen.class);
+                    Bundle extras = new Bundle();
+
+
+                    extras.putString("Issue",issue+" issues");
+                    extras.putString("Problem",issues.get(position));
+                    extras.putString("Price",price);
+                    i.putExtras(extras);
+                    context.startActivity(i);
+
+                    // Toast.makeText(getApplicationContext(), issues.get(position), Toast.LENGTH_SHORT).show();
                 }
 
                 return false;
