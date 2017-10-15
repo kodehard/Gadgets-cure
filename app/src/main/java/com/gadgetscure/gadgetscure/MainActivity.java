@@ -1,78 +1,91 @@
 package com.gadgetscure.gadgetscure;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
-
-import java.util.ArrayList;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+    Toolbar toolbar;
+    RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
+    RecyclerView.Adapter adapter;
+    private CollapsingToolbarLayout collapsingToolbarLayout = null;
 
-    private ArrayList<String> issues;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        initViews();
-    }
+        setContentView(R.layout.activity_card_demo);
+        toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
 
-    private void initViews(){
-        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.card_recycler_view);
-        recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbarLayout.setTitle("Gadgets Cure");
+        dynamicToolbarColor();
+        toolbarTextAppernce();
+
+
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
+        layoutManager = new LinearLayoutManager(this);
+        //recyclerView.setLayoutManager(layoutManager);
         recyclerView.setLayoutManager(layoutManager);
-        issues = new ArrayList<>();
-        issues.add("Not powering ON");
-        issues.add("Not Charging");
-        issues.add("Display Damage");
-        issues.add("Slow Processing");
-        issues.add("Battery problem");
-        issues.add("Over Heating");
-        issues.add("Speaker Issue");
-        issues.add("Body Damage");
-        issues.add("Camera Issue");
-        issues.add("Keys/Buttons Not Working");
-        issues.add("No display/Blank display");
-        issues.add("Other/None of the Above");
-        RecyclerView.Adapter adapter = new DataAdapter(issues);
+       // new RecyclerAdapter(this);
+
+        adapter = new RecyclerAdapter();
         recyclerView.setAdapter(adapter);
 
-        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-            GestureDetector gestureDetector = new GestureDetector(getApplicationContext(), new GestureDetector.SimpleOnGestureListener() {
-
-                @Override
-                public boolean onSingleTapUp(MotionEvent e) {
-                    return true;
-                }
-
-            });
+     /* TextView itemDetail = (TextView) findViewById(R.id.item_detail);
+        itemDetail.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-
-                View child = rv.findChildViewUnder(e.getX(), e.getY());
-                if(child != null && gestureDetector.onTouchEvent(e)) {
-                    int position = rv.getChildAdapterPosition(child);
-                    Toast.makeText(getApplicationContext(), issues.get(position), Toast.LENGTH_SHORT).show();
-                }
-
-                return false;
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, CardDemoActivity.class);
+                startActivity(i);
             }
+        }); */
+    }
+       // TextView itemName =(TextView) findViewById(R.id.name);
+        //temName.setOnClickListener(new View.OnClickListener() {
+           // @Override
+            //public void onClick(View view) {
+          //      Intent i =new Intent(MainActivity.this,CardDemoActivity.class);
+           //     startActivity(i);
+          //  }
+        //});
+    //}
 
+    private void dynamicToolbarColor() {
+
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
+                R.drawable.icon);
+        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
             @Override
-            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-
-            }
-
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
+            public void onGenerated(Palette palette) {
+                collapsingToolbarLayout.setContentScrimColor(palette.getMutedColor(R.attr.colorPrimaryDark));
+                collapsingToolbarLayout.setStatusBarScrimColor(palette.getMutedColor(R.attr.colorPrimaryDark));
             }
         });
     }
+
+
+
+    private void toolbarTextAppernce() {
+        collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.collapsedappbar);
+        collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.expandedappbar);
+    }
+
+
+
 }
