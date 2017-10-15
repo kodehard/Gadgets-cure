@@ -1,9 +1,11 @@
 package com.gadgetscure.gadgetscure;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +20,10 @@ public class InfoScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_screen);
+        Toolbar toolbar;
+        toolbar=(Toolbar) findViewById(R.id.infotoolbar);
+        toolbar.setTitle("Booking Info");
+        toolbar.setTitleTextColor(Color.WHITE);
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
