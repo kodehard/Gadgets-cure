@@ -1,20 +1,14 @@
 package com.gadgetscure.gadgetscure;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -27,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_card_demo);
+        setContentView(R.layout.main);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
 
@@ -51,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         itemDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, CardDemoActivity.class);
+                Intent i = new Intent(MainActivity.this, IssuesActivity.class);
                 startActivity(i);
             }
         }); */
@@ -60,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         //temName.setOnClickListener(new View.OnClickListener() {
            // @Override
             //public void onClick(View view) {
-          //      Intent i =new Intent(MainActivity.this,CardDemoActivity.class);
+          //      Intent i =new Intent(MainActivity.this,IssuesActivity.class);
            //     startActivity(i);
           //  }
         //});

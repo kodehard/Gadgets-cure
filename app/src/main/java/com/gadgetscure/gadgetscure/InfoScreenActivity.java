@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class InfoScreen extends AppCompatActivity {
+public class InfoScreenActivity extends AppCompatActivity {
    public String device_issue,problem,cost;
 
 

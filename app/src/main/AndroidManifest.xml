@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CardDemoActivity"
+            android:name=".IssuesActivity"
             android:label="Problems"
             android:parentActivityName=".MainActivity">
 
@@ -25,10 +25,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".InfoScreen"
+        <activity android:name=".InfoScreenActivity"
             android:label="User Info"
 
-            android:parentActivityName=".CardDemoActivity" >
+            android:parentActivityName=".IssuesActivity" >
 
 
         </activity>

@@ -5,21 +5,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import static com.gadgetscure.gadgetscure.R.id.toolbar;
 
-
-public class CardDemoActivity extends Activity {
+public class IssuesActivity extends Activity {
     Toolbar toolbar;
     String issue,price;
     private ArrayList<String> issues;
@@ -28,7 +24,7 @@ public class CardDemoActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.issuescreen);
         Intent i= getIntent();
         Bundle b = i.getExtras();
         issue=b.getString("Issue");
@@ -80,7 +76,7 @@ public class CardDemoActivity extends Activity {
                 if(child != null && gestureDetector.onTouchEvent(e)) {
                     int position = rv.getChildAdapterPosition(child);
                     context=rv.getContext();
-                    Intent i = new Intent(context, InfoScreen.class);
+                    Intent i = new Intent(context, InfoScreenActivity.class);
                     Bundle extras = new Bundle();
 
 
