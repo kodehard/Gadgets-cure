@@ -34,7 +34,7 @@ public class IssuesActivity extends Activity {
 
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(issue+" Issues");
+        toolbar.setTitle(issue +" Issues");
         toolbar.setTitleTextColor(Color.WHITE);
         initViews();
     }

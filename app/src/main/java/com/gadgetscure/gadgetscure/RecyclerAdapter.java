@@ -38,7 +38,7 @@ Context context;
 
     };
 
-    private String[] names = {"Mobiles", "Tablets", "Laptops", "Desktops", "Networking", "Printers", "Parental Control"
+    private String[] names = {"Mobiles", "Tablets", "Laptops", "Desktops", "Networking ", "Printers", "Parental Control "
     };
 
     class ViewHolder extends RecyclerView.ViewHolder {
