@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.gadgetscure.gadgetscure.SplashScreen"
-    android:background="#3498"
+    android:background="@mipmap/splash2"
+
     >
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -16,29 +17,39 @@
         android:src="@drawable/icon"
         android:layout_gravity="center"
 
-        android:layout_marginTop="35dp"
-        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
 
     <TextView
         android:id="@+id/textView"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Gadgets Cure"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="30sp"
         android:gravity="center"
-        android:layout_below="@+id/item_image"
+        android:layout_above="@+id/item_image"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp" />
-    <ProgressBar
-        android:id="@+id/progressbar"
+        android:layout_marginBottom="40dp" />
+   <!-- <com.felipecsl.gifimageview.library.GifImageView
+        android:id="@+id/gif"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"/>-->
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginRight="57dp"
+        android:layout_marginEnd="57dp"
+        android:layout_below="@+id/item_image"
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignEnd="@+id/textView" />
 
 </RelativeLayout>
