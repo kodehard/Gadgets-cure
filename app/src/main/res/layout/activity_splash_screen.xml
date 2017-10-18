@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.gadgetscure.gadgetscure.SplashScreen"
-    android:background="@mipmap/splash2"
+    android:background="@mipmap/backinfo"
 
     >
 
@@ -17,7 +17,8 @@
         android:src="@drawable/icon"
         android:layout_gravity="center"
 
-        android:layout_centerVertical="true"
+        android:layout_marginTop="37dp"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -28,12 +29,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Gadgets Cure"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="30sp"
         android:gravity="center"
-        android:layout_above="@+id/item_image"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40dp" />
+        android:layout_marginTop="34dp"
+        android:layout_below="@+id/item_image"
+        android:layout_centerHorizontal="true" />
    <!-- <com.felipecsl.gifimageview.library.GifImageView
         android:id="@+id/gif"
         android:layout_width="wrap_content"
@@ -45,11 +46,8 @@
         android:id="@+id/progressbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:layout_marginRight="57dp"
-        android:layout_marginEnd="57dp"
-        android:layout_below="@+id/item_image"
-        android:layout_alignRight="@+id/textView"
-        android:layout_alignEnd="@+id/textView" />
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp" />
 
 </RelativeLayout>
