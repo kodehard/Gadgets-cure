@@ -29,7 +29,7 @@ public class InfoScreenActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         device_issue = extras.getString("Issue");
-        device_issue = device_issue.substring(0, device_issue.length() - 1);
+        
 
         problem = extras.getString("Problem");
         cost = extras.getString("Price");
