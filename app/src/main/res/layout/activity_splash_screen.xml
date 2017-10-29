@@ -35,13 +35,7 @@
         android:textColor="#62686E"
         android:textSize="30sp"
         android:textStyle="bold" />
-    <!-- <com.felipecsl.gifimageview.library.GifImageView
-         android:id="@+id/gif"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_marginTop="30dp"
-         android:layout_below="@+id/textView"
-         android:layout_centerHorizontal="true"/>-->
+
     <ProgressBar
         android:id="@+id/progressbar"
         android:layout_width="wrap_content"
