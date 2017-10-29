@@ -6,8 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#E0F2F1"
+    android:orientation="vertical"
     tools:context="com.gadgetscure.gadgetscure.InfoScreenActivity">
 
     <android.support.v7.widget.Toolbar
@@ -44,8 +44,8 @@
                 android:id="@+id/user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:layout_marginLeft="69dp"
+                android:backgroundTint="@color/colorPrimary"
                 android:textSize="18sp"
                 android:textStyle="italic" />
         </LinearLayout>
@@ -69,8 +69,9 @@
                 android:id="@+id/address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:layout_marginLeft="51dp"
+
+                android:backgroundTint="@color/colorPrimary"
                 android:textSize="18sp"
                 android:textStyle="italic" />
         </LinearLayout>
@@ -92,10 +93,11 @@
 
             <EditText
                 android:id="@+id/phone_num"
-
                 android:layout_width="match_parent"
+
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="39dp"
+                android:backgroundTint="@color/colorPrimary"
                 android:textSize="18sp"
                 android:textStyle="italic" />
         </LinearLayout>
@@ -117,10 +119,11 @@
 
             <EditText
                 android:id="@+id/date"
-
                 android:layout_width="match_parent"
+
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="22dp"
+                android:backgroundTint="@color/colorPrimary"
                 android:textSize="16sp"
                 android:textStyle="italic" />
         </LinearLayout>
@@ -142,10 +145,11 @@
 
             <EditText
                 android:id="@+id/time"
-
                 android:layout_width="match_parent"
+
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
+                android:backgroundTint="@color/colorPrimary"
                 android:textSize="18sp"
                 android:textStyle="italic" />
         </LinearLayout>
