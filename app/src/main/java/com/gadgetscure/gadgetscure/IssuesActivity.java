@@ -17,30 +17,32 @@ import java.util.ArrayList;
 
 public class IssuesActivity extends Activity {
     Toolbar toolbar;
-    String issue,price;
-    private ArrayList<String> issues;
+    String issue, price;
     Context context;
+    private ArrayList<String> issues;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.issuescreen);
-        Intent i= getIntent();
+        Intent i = getIntent();
         Bundle b = i.getExtras();
-        issue=b.getString("Issue");
-        price=b.getString("Price");
+        issue = b.getString("Issue");
+        price = b.getString("Price");
 
         issue = issue.substring(0, issue.length() - 1);
 
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Choose your "+issue +" Problem");
+        toolbar.setTitle("Choose your " + issue + " Problem");
         toolbar.setTitleTextColor(Color.WHITE);
         initViews();
     }
 
-    private void initViews(){
-        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.card_recycler_view);
+    private void initViews() {
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.card_recycler_view);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -69,23 +71,23 @@ public class IssuesActivity extends Activity {
                 }
 
             });
+
             @Override
             public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
 
                 View child = rv.findChildViewUnder(e.getX(), e.getY());
-                if(child != null && gestureDetector.onTouchEvent(e)) {
+                if (child != null && gestureDetector.onTouchEvent(e)) {
                     int position = rv.getChildAdapterPosition(child);
-                    context=rv.getContext();
+                    context = rv.getContext();
 
 
                     Intent i = new Intent(context, InfoScreenActivity.class);
                     Bundle extras = new Bundle();
 
 
-
-                    extras.putString("Issue",issue+" Problem");
-                    extras.putString("Problem",issues.get(position));
-                    extras.putString("Price",price);
+                    extras.putString("Issue", issue + " Problem");
+                    extras.putString("Problem", issues.get(position));
+                    extras.putString("Price", price);
                     i.putExtras(extras);
                     context.startActivity(i);
 

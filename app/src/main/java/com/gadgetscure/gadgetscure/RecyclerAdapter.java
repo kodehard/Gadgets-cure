@@ -18,8 +18,7 @@ import android.widget.TextView;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
 
-
-Context context;
+    Context context;
 
 
     private String[] details = {"Rs.200", "Rs.200", "Rs.300", "Rs.300", "Rs.300", "Rs.300", "Rs.500"
@@ -41,6 +40,28 @@ Context context;
     private String[] names = {"Mobiles", "Tablets", "Laptops", "Desktops", "Networking ", "Printers", "Parental Control "
     };
 
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View v = LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.card_layout, viewGroup, false);
+        ViewHolder viewHolder = new ViewHolder(v);
+        return viewHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder viewHolder, int i) {
+
+        viewHolder.itemDetail.setText(details[i]);
+        viewHolder.itemImage.setImageResource(images[i]);
+        viewHolder.itemName.setText(names[i]);
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return names.length;
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
 
         public int currentItem;
@@ -57,22 +78,20 @@ Context context;
 
             itemDetail = (TextView) itemView.findViewById(R.id.item_detail);
             itemName = (TextView) itemView.findViewById(R.id.name);
-            itemView.setOnClickListener(new View.OnClickListener()
-            {
-              @Override
-              public void onClick(View v) {
-                  int position = getAdapterPosition();
-                  context=v.getContext();
-                   Intent i = new Intent(context, IssuesActivity.class);
-                 // i.putExtra("Issue",names[position]);
-                  Bundle extras = new Bundle();
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    context = v.getContext();
+                    Intent i = new Intent(context, IssuesActivity.class);
+                    // i.putExtra("Issue",names[position]);
+                    Bundle extras = new Bundle();
 
 
-                  extras.putString("Issue",names[position]);
-                  extras.putString("Price",details[position]);
-                  i.putExtras(extras);
+                    extras.putString("Issue", names[position]);
+                    extras.putString("Price", details[position]);
+                    i.putExtras(extras);
                     context.startActivity(i);
-
 
 
                     //Snackbar.make(v, "Click detected on item " + position,
@@ -83,28 +102,5 @@ Context context;
             });
 
         }
-    }
-
-
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.card_layout, viewGroup, false);
-        ViewHolder viewHolder = new ViewHolder(v);
-        return viewHolder;
-    }
-
-@Override
-    public void onBindViewHolder(ViewHolder viewHolder, int i) {
-
-        viewHolder.itemDetail.setText(details[i]);
-        viewHolder.itemImage.setImageResource(images[i]);
-        viewHolder.itemName.setText(names[i]);
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return names.length;
     }
 }

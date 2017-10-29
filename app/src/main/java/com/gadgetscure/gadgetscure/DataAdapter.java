@@ -33,12 +33,13 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         return issues.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView issue;
+
         public ViewHolder(View view) {
             super(view);
 
-            issue = (TextView)view.findViewById(R.id.issue);
+            issue = (TextView) view.findViewById(R.id.issue);
         }
     }
 

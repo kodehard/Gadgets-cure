@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ProgressBar;
 
 public class SplashScreen extends AppCompatActivity {
-    private static int SPLASH_TIME_OUT=3000;
+    private static int SPLASH_TIME_OUT = 3000;
     private ProgressBar progressbar;
     //private GifImageView gif;
 
@@ -15,7 +15,7 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        progressbar=(ProgressBar) findViewById(R.id.progressbar);
+        progressbar = (ProgressBar) findViewById(R.id.progressbar);
         progressbar.setVisibility(ProgressBar.VISIBLE);
         //gif=(GifImageView)findViewById(R.id.gif);
        /* try{
@@ -33,7 +33,7 @@ public class SplashScreen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent mainIntent = new Intent(SplashScreen.this,MainActivity.class);
+                Intent mainIntent = new Intent(SplashScreen.this, MainActivity.class);
                 startActivity(mainIntent);
                 finish();
 

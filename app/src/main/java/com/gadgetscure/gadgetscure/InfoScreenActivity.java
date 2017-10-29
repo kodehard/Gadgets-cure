@@ -14,12 +14,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class InfoScreenActivity extends AppCompatActivity {
-   public String device_issue,problem,cost,message;
+    public String device_issue, problem, cost;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_info_screen);
         Toolbar toolbar;
         toolbar = (Toolbar) findViewById(R.id.infotoolbar);
@@ -54,15 +56,19 @@ public class InfoScreenActivity extends AppCompatActivity {
 
                 String Address = address.getText().toString();
                 String Phone = phone.getText().toString();
-                String message = "Name : " + Name + "\n Address : " + Address + "\n Phone number : " + Phone + "\n Device : " + device_issue
-                        + "\n Problem : " + problem + "\n Inspection Charges : " + cost;
-                if(TextUtils.isEmpty(Name)||TextUtils.isEmpty(Address)||TextUtils.isEmpty(Phone)) {
-                    //Toast.makeText(InfoScreenActivity.this, " !! Please enter all the fields !! ", Toast.LENGTH_LONG).show();
-                    Snackbar.make(v,"                !!   Please Fill All The Fields   !! ",
+                EditText date = (EditText) findViewById(R.id.date);
+                String Date = date.getText().toString();
+                EditText time = (EditText) findViewById(R.id.time);
+                String Time = time.getText().toString();
+
+
+                String message = "Name : " + Name + "\n \nAddress : " + Address + "\n \nPhone number : " + Phone + "\n\n Pickup Date : " + Date + "\n \nPickup Time : " + Time + "\n\n Device/Problem : " + device_issue
+                        + "\n\n Problem : " + problem + "\n\n Inspection Charges : " + cost;
+                if (TextUtils.isEmpty(Name) || TextUtils.isEmpty(Address) || TextUtils.isEmpty(Phone) || TextUtils.isEmpty(Date) || TextUtils.isEmpty(Time)) {
+
+                    Snackbar.make(v, "                !!   Please Fill All The Fields   !! ",
                             Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                }
-                else
-                    {
+                } else {
 
                     Intent i = new Intent(Intent.ACTION_SENDTO);
                     i.setData(Uri.parse("mailto:"));
@@ -77,18 +83,10 @@ public class InfoScreenActivity extends AppCompatActivity {
                 }
 
 
-
-
-
             }
         });
     }
 
 
-
-
-
-
-
-    }
+}
 
