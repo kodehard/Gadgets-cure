@@ -1,10 +1,10 @@
 package com.gadgetscure.gadgetscure;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -15,7 +15,7 @@ import android.view.View;
 import java.util.ArrayList;
 
 
-public class IssuesActivity extends Activity {
+public class IssuesActivity extends AppCompatActivity {
     Toolbar toolbar;
     String issue, price;
     Context context;
@@ -38,6 +38,11 @@ public class IssuesActivity extends Activity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Choose your " + issue + " Problem");
         toolbar.setTitleTextColor(Color.WHITE);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         initViews();
     }
 

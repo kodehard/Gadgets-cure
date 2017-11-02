@@ -26,6 +26,11 @@ public class InfoScreenActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.infotoolbar);
         toolbar.setTitle("Booking Info");
         toolbar.setTitleTextColor(Color.WHITE);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();

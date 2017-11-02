@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         toolbar.setTitle("Gadgets Cure");
         toolbar.setTitleTextColor(Color.WHITE);
+
         mDemoSlider = (SliderLayout)findViewById(R.id.slider);
         HashMap<String,Integer> file_maps = new HashMap<String, Integer>();
         file_maps.put("Refer and earn ",R.drawable.refer);

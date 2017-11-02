@@ -28,7 +28,7 @@
         <activity
             android:name=".InfoScreenActivity"
             android:label="User Info"
-            android:parentActivityName=".IssuesActivity"></activity>
+            android:parentActivityName=".MainActivity"></activity>
         <activity android:name=".MainActivity"></activity>
     </application>
 
