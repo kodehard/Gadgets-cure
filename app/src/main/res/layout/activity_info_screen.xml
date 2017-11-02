@@ -167,7 +167,7 @@
 
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Device / \nProblem  : "
+                android:text="Device / \nProblem   : "
 
                 android:textColor="@color/black"
                 android:textSize="18sp"
@@ -178,7 +178,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="36dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="22dp"
                 android:text="Device Issue"
                 android:textColor="@color/black"
                 android:textSize="18sp"
@@ -221,7 +221,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="32dp"
-                android:text="Price         :"
+                android:text="Charges   :"
 
                 android:textColor="@color/black"
                 android:textSize="18sp"
