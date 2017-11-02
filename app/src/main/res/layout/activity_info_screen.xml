@@ -71,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="51dp"
-
+                android:hint="H.no., Street, Colony, Area"
                 android:backgroundTint="@color/colorPrimary"
                 android:textSize="18sp"
                 android:textStyle="italic" />
@@ -95,7 +95,7 @@
             <EditText
                 android:id="@+id/phone_num"
                 android:layout_width="match_parent"
-
+                android:hint="+91"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="39dp"
                 android:backgroundTint="@color/colorPrimary"
@@ -121,7 +121,7 @@
             <EditText
                 android:id="@+id/date"
                 android:layout_width="match_parent"
-
+                 android:hint="          dd/mm/yyyy"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="22dp"
                 android:backgroundTint="@color/colorPrimary"
@@ -147,7 +147,7 @@
             <EditText
                 android:id="@+id/time"
                 android:layout_width="match_parent"
-
+                android:hint="from 9:00 a.m to 7:00 p.m"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:backgroundTint="@color/colorPrimary"

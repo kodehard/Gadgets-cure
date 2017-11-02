@@ -43,6 +43,7 @@ public class InfoScreenActivity extends AppCompatActivity {
         price.setText(cost);
 
 
+
         Button msg = (Button) findViewById(R.id.msg);
 
         msg.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +89,7 @@ public class InfoScreenActivity extends AppCompatActivity {
 
 
                 }
-                
+
                 if(flag==0) {
                     Intent i = new Intent(Intent.ACTION_SENDTO);
                     i.setData(Uri.parse("mailto:"));
