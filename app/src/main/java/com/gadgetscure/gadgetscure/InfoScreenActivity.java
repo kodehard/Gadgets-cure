@@ -21,7 +21,6 @@ public class InfoScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         setContentView(R.layout.activity_info_screen);
         Toolbar toolbar;
         toolbar = (Toolbar) findViewById(R.id.infotoolbar);
@@ -49,6 +48,7 @@ public class InfoScreenActivity extends AppCompatActivity {
         msg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int flag=0;
                 EditText name = (EditText) findViewById(R.id.user_name);
                 EditText address = (EditText) findViewById(R.id.address);
                 EditText phone = (EditText) findViewById(R.id.phone_num);
@@ -64,12 +64,32 @@ public class InfoScreenActivity extends AppCompatActivity {
 
                 String message = "Name : " + Name + "\n \nAddress : " + Address + "\n \nPhone number : " + Phone + "\n\n Pickup Date : " + Date + "\n \nPickup Time : " + Time + "\n\n Device/Problem : " + device_issue
                         + "\n\n Problem : " + problem + "\n\n Inspection Charges : " + cost;
+
                 if (TextUtils.isEmpty(Name) || TextUtils.isEmpty(Address) || TextUtils.isEmpty(Phone) || TextUtils.isEmpty(Date) || TextUtils.isEmpty(Time)) {
 
                     Snackbar.make(v, "                !!   Please Fill All The Fields   !! ",
                             Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                } else {
+                    flag=1;
+                }
 
+               else if (!TextUtils.isDigitsOnly(Phone) || (Phone.length()!=10))
+                {
+                    Snackbar.make(v, "                !!   Please Enter a Valid Number   !! ",
+                            Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
+
+
+                    flag=1;
+                }
+                else if(!Name.matches("[a-zA-Z]+")){
+                    flag=1;
+                    Snackbar.make(v, "                !!   Please Enter a Valid Name   !! ",
+                            Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
+
+                }
+                
+                if(flag==0) {
                     Intent i = new Intent(Intent.ACTION_SENDTO);
                     i.setData(Uri.parse("mailto:"));
 
@@ -80,6 +100,9 @@ public class InfoScreenActivity extends AppCompatActivity {
                     if (i.resolveActivity(getPackageManager()) != null) {
                         startActivity(i);
                     }
+
+
+
                 }
 
 
