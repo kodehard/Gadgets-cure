@@ -23,8 +23,10 @@
         custom:auto_cycle="true"
         custom:indicator_visibility="visible"
         custom:pager_animation_span="1100"
-        android:layout_height="200dp"
+        android:layout_height="225dp"
         android:layout_below="@id/tool_bar"
+        android:padding="4dp"
+        android:background="#9E9E9E"
         />
     <com.daimajia.slider.library.Indicators.PagerIndicator
         android:id="@+id/custom_indicator"
@@ -59,7 +61,7 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/slider" />
