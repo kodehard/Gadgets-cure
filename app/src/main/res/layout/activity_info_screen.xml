@@ -47,7 +47,8 @@
                 android:layout_marginLeft="69dp"
                 android:backgroundTint="@color/colorPrimary"
                 android:textSize="18sp"
-                android:textStyle="italic" />
+                android:textStyle="italic"
+                />
         </LinearLayout>
 
         <LinearLayout
