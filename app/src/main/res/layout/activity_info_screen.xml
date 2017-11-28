@@ -25,6 +25,9 @@
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/infotoolbar">
 
     <LinearLayout
@@ -37,7 +40,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -52,7 +55,7 @@
                 android:id="@+id/user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="69dp"
+                android:layout_marginLeft="16dp"
                 android:backgroundTint="@color/colorPrimary"
                 android:textSize="18sp"
                 android:textStyle="italic"
@@ -62,8 +65,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -75,10 +78,11 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:layout_marginTop="6dp"
                 android:id="@+id/address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="51dp"
+                android:layout_marginLeft="16dp"
                 android:hint="H.no., Street, Colony, Area"
                 android:backgroundTint="@color/colorPrimary"
                 android:textSize="18sp"
@@ -88,8 +92,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -101,11 +105,12 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:layout_marginTop="6dp"
                 android:id="@+id/phone_num"
                 android:layout_width="match_parent"
                 android:hint="+91"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="39dp"
+                android:layout_marginLeft="16dp"
                 android:backgroundTint="@color/colorPrimary"
                 android:textSize="18sp"
                 android:textStyle="italic" />
@@ -114,8 +119,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -127,11 +132,12 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:layout_marginTop="6dp"
                 android:id="@+id/date"
                 android:layout_width="match_parent"
-                 android:hint="          dd/mm/yyyy"
+                 android:hint="dd/mm/yyyy"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="22dp"
+                android:layout_marginLeft="16dp"
                 android:backgroundTint="@color/colorPrimary"
                 android:textSize="16sp"
                 android:textStyle="italic" />
@@ -140,8 +146,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -153,6 +159,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:layout_marginTop="6dp"
                 android:id="@+id/time"
                 android:layout_width="match_parent"
                 android:hint="from 9:00 a.m to 7:00 p.m"
@@ -167,7 +174,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -175,7 +183,7 @@
 
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Device / \nProblem   : "
+                android:text="Device / Problem   : "
 
                 android:textColor="@color/black"
                 android:textSize="18sp"
@@ -185,8 +193,8 @@
                 android:id="@+id/problem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="36dp"
-                android:layout_marginTop="22dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="26dp"
                 android:text="Device Issue"
                 android:textColor="@color/black"
                 android:textSize="18sp"
@@ -195,13 +203,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="20dp"
                 android:text="Problem   :"
 
                 android:textColor="@color/black"
@@ -212,8 +221,8 @@
                 android:id="@+id/problemtype"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="37dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="20dp"
                 android:text="Problem"
                 android:textColor="@color/black"
                 android:textSize="18sp"
@@ -222,13 +231,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="20dp"
                 android:text="Charges   :"
 
                 android:textColor="@color/black"
@@ -239,8 +249,8 @@
                 android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="20dp"
                 android:text="price"
                 android:textColor="@color/black"
                 android:textSize="18sp"
@@ -252,8 +262,9 @@
 
             android:layout_width="120dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="21dp"
+            android:layout_marginBottom="30dp"
             android:background="@drawable/button_shape"
             android:shadowColor="#3913F2"
             android:shadowDx="0"
