@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E0F2F1"
+
     tools:context="com.gadgetscure.gadgetscure.MainActivity">
 
 
@@ -26,8 +26,8 @@
         custom:pager_animation_span="1100"
         android:layout_height="225dp"
         android:layout_below="@id/tool_bar"
-        android:padding="6dp"
-        android:background="#9E9E9E"
+        android:padding="0dp"
+
         />
 
     <android.support.v7.widget.RecyclerView

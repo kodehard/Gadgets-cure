@@ -21,4 +21,32 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="LoginTheme"  parent="@android:style/Theme.NoTitleBar.Fullscreen">
+             style="?android:attr/progressBarStyleLarge"
+
+
+        <item name="colorButtonNormal">@color/colorAccent</item>
+
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
+        <item name="android:windowBackground">@mipmap/bg_login</item>
+
+        <item name="windowNoTitle">true</item>
+        <item name="android:textColorHint">@android:color/white</item>
+    </style>
+
+    <style name="FirebaseUI.Text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="FirebaseUI.Text.Link">
+        <item name="android:textColor">@color/colorSecondary</item>
+    </style>
+
+
+
 </resources>

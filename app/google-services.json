@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "606386442088",
+    "firebase_url": "https://gadgetscure-db.firebaseio.com",
+    "project_id": "gadgetscure-db",
+    "storage_bucket": "gadgetscure-db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:606386442088:android:8c8283661fc51fe9",
+        "android_client_info": {
+          "package_name": "com.gadgetscure.gadgetscure"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "606386442088-8kaege7e1blucjf5ufdbv0im83nmna74.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gadgetscure.gadgetscure",
+            "certificate_hash": "d73bdc70254f08bb7ba1bf8872efb0664d38a89c"
+          }
+        },
+        {
+          "client_id": "606386442088-o4god20nonpoi01dg0lv97p1jd2clmnv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtk8YXbh2-6wcofDjTFu2h5n0VZgvRijE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "606386442088-o4god20nonpoi01dg0lv97p1jd2clmnv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
