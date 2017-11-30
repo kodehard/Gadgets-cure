@@ -133,14 +133,18 @@
 
             <EditText
                 android:layout_marginTop="6dp"
-                android:id="@+id/date"
+                android:id="@+id/mPickDate"
                 android:layout_width="match_parent"
                  android:hint="dd/mm/yyyy"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:backgroundTint="@color/colorPrimary"
                 android:textSize="16sp"
-                android:textStyle="italic" />
+                android:textStyle="italic"
+                android:clickable="true"
+                android:focusable="false"
+
+                />
         </LinearLayout>
 
         <LinearLayout

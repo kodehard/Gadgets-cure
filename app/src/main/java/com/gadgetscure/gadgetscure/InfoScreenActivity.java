@@ -1,5 +1,7 @@
 package com.gadgetscure.gadgetscure;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,13 +23,22 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Calendar;
 import java.util.Random;
 
+
+
 public class InfoScreenActivity extends AppCompatActivity {
-    public String device_issue, problem, cost,description;
+    public String device_issue, problem, cost,description,Date;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
-    private final Random rand = new Random();
+        private final Random rand = new Random();
+
+    private EditText mPickDate;
+    private int mYear;
+    private int mMonth;
+    private int mDay;
+    static final int DATE_DIALOG_ID = 0;
 
 
 
@@ -68,6 +80,22 @@ public class InfoScreenActivity extends AppCompatActivity {
         TextView Description = (TextView) findViewById(R.id.description);
         Description.setText(description);
 
+        mPickDate = (EditText) findViewById(R.id.mPickDate);//button for showing date picker dialog
+        mPickDate.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) { showDialog(DATE_DIALOG_ID); }
+        });
+
+        // get the current date
+        final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
+
+
+        // display the current date
+        updateDisplay();
+
+
 
 
         Button msg = (Button) findViewById(R.id.msg);
@@ -83,8 +111,9 @@ public class InfoScreenActivity extends AppCompatActivity {
 
                 String Address = address.getText().toString();
                 String Phone = phone.getText().toString();
-                EditText date = (EditText) findViewById(R.id.date);
-                String Date = date.getText().toString();
+               // EditText date = (EditText) findViewById(R.id.datetext);
+                //String Date = date.getText().toString();
+                Date= mPickDate.getText().toString();
                 EditText time = (EditText) findViewById(R.id.time);
                 String Time = time.getText().toString();
                 long x = 10011100011000l;
@@ -175,6 +204,41 @@ public class InfoScreenActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
+            case DATE_DIALOG_ID:
+                return new DatePickerDialog(this, mDateSetListener, mYear, mMonth, mDay);
+        }
+        return null;
+    }
+
+    //update month day year
+    private void updateDisplay() {
+        mPickDate.setText(//this is the edit text where you want to show the selected date
+                new StringBuilder()
+                        // Month is 0 based so add 1
+                        .append(mYear).append("-")
+                        .append(mMonth + 1).append("-")
+                        .append(mDay).append(""));
+
+
+        //.append(mMonth + 1).append("-")
+        //.append(mDay).append("-")
+        //.append(mYear).append(" "));
+    }
+
+    // the call back received when the user "sets" the date in the dialog
+    private DatePickerDialog.OnDateSetListener mDateSetListener =
+            new DatePickerDialog.OnDateSetListener() {
+                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    mYear = year;
+                    mMonth = monthOfYear;
+                    mDay = dayOfMonth;
+                    updateDisplay();
+                }
+            };
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
