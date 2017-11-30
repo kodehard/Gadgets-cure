@@ -53,19 +53,22 @@
 
             <EditText
                 android:id="@+id/user_name"
-                android:layout_width="match_parent"
+                android:layout_width="275dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:backgroundTint="@color/colorPrimary"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="4dp"
+                android:backgroundTint="#E1F5FE"
                 android:textSize="18sp"
                 android:textStyle="italic"
+                android:background="@drawable/edittext"
+                android:padding="8dp"
                 />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="12dp"
             android:orientation="vertical">
 
             <TextView
@@ -80,20 +83,23 @@
             <EditText
                 android:layout_marginTop="6dp"
                 android:id="@+id/address"
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="12dp"
                 android:hint="H.no., Street, Colony, Area"
-                android:backgroundTint="@color/colorPrimary"
                 android:textSize="18sp"
                 android:textStyle="italic"
-                android:inputType="textPostalAddress"/>
+                android:inputType="textMultiLine"
+                android:background="@drawable/edittext"
+                android:padding="8dp"
+
+                />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="16dp"
             android:orientation="vertical">
 
             <TextView
@@ -104,18 +110,31 @@
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
-            <EditText
-                android:layout_marginTop="6dp"
-                android:id="@+id/phone_num"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:hint="+91"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:backgroundTint="@color/colorPrimary"
+                android:layout_margin="16dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+91 "
+                    android:textColor="@color/black"
+                    android:textStyle="italic"
+                    android:textSize="18sp"
+                    />
+            <EditText
+
+                android:id="@+id/phone_num"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#E1F5FE"
                 android:textSize="18sp"
                 android:textStyle="italic"
-                android:inputType="phone"/>
+                android:inputType="phone"
+                android:background="@drawable/edittext"
+                android:padding="8dp"/>
+                </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -136,16 +155,18 @@
             <EditText
                 android:layout_marginTop="6dp"
                 android:id="@+id/mPickDate"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                  android:hint="dd/mm/yyyy"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:backgroundTint="@color/colorPrimary"
+                android:backgroundTint="#E1F5FE"
                 android:textSize="16sp"
                 android:textStyle="italic"
                 android:clickable="true"
                 android:focusable="false"
                 android:inputType="date"
+                android:background="@drawable/edittext"
+                android:padding="16dp"
 
                 />
         </LinearLayout>
@@ -168,15 +189,17 @@
             <EditText
                 android:layout_marginTop="6dp"
                 android:id="@+id/time"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:hint="from 9:00 a.m to 7:00 p.m"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:backgroundTint="@color/colorPrimary"
+                android:backgroundTint="#E1F5FE"
                 android:textSize="18sp"
                 android:textStyle="italic"
                 android:clickable="true"
                 android:focusable="false"
+                android:background="@drawable/edittext"
+                android:padding="10dp"
                 />
         </LinearLayout>
 
@@ -266,21 +289,41 @@
                 android:textSize="18sp"
                 android:textStyle="italic" />
         </LinearLayout>
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+
             <TextView
+                android:id="@+id/des"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="20dp"
-                android:text="Description"
+                android:text="Description :"
 
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add \nDescription"
+                    android:textSize="14sp"
+                    android:layout_marginRight="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_below="@+id/des"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/edittext"
+                    android:padding="8dp"
+                    android:backgroundTint="#BDBDBD"
+                    />
+
 
             <TextView
                 android:id="@+id/description"
@@ -291,8 +334,9 @@
                 android:text="description"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:textStyle="italic" />
-        </LinearLayout>
+                android:textStyle="italic"
+                android:layout_below="@+id/des"/>
+        </RelativeLayout>
 
 
 
@@ -303,7 +347,7 @@
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="21dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="50dp"
             android:background="@drawable/button_shape"
             android:shadowColor="#3913F2"
             android:shadowDx="0"

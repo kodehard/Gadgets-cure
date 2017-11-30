@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 
@@ -55,6 +57,8 @@ public class DescriptionActivity extends AppCompatActivity {
                                         EditText describe = (EditText) findViewById(R.id.editText);
                                         describe.setSelection(0);
                                         description = describe.getText().toString();
+                                        if(TextUtils.isEmpty(description))
+                                            Toast.makeText(DescriptionActivity.this," A description would be more helpful !!",Toast.LENGTH_SHORT).show();
 
                                         Intent i = new Intent(DescriptionActivity.this, InfoScreenActivity.class);
                                         Bundle extras = new Bundle();

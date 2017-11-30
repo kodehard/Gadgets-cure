@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/Bookingtoolbar"
         android:layout_marginTop="21dp"
-        android:text="!! Your Booking has been succesful !!"
+        android:text=" Your Booking is succesful !!"
         android:layout_centerHorizontal="true"
         android:textColor="@color/black"
         android:textSize="20sp"
@@ -44,7 +44,7 @@
         android:orientation="horizontal"
         android:layout_below="@+id/tick"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="16dp">
+        android:layout_marginLeft="36dp">
 
         <TextView
             android:id="@+id/textView2"
@@ -72,7 +72,7 @@
         android:textColor="@color/black"
         android:textSize="16sp"
         android:layout_marginTop="21dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="36dp"
         android:layout_marginBottom="4dp"
         android:textStyle="italic"
         />
@@ -82,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/summary"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="36dp"
             android:text="Summary : "
             android:textSize="16sp" />
 

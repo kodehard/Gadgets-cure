@@ -35,7 +35,9 @@ public class InfoScreenActivity extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
         private final Random rand = new Random();
+    private int t=0,d=0;
 
+    private  int dd,mm,yy;
     private EditText mPickDate;
     private EditText time;
    private int mYear;
@@ -80,11 +82,11 @@ public class InfoScreenActivity extends AppCompatActivity {
 
         TextView deviceissue = (TextView) findViewById(R.id.problem);
         TextView problem_type = (TextView) findViewById(R.id.problemtype);
-        TextView price = (TextView) findViewById(R.id.price);
+        final TextView price = (TextView) findViewById(R.id.price);
         deviceissue.setText(device_issue);
         problem_type.setText(problem);
         price.setText(cost);
-        TextView Description = (TextView) findViewById(R.id.description);
+        final TextView Description = (TextView) findViewById(R.id.description);
         Description.setText(description);
 
         mPickDate = (EditText) findViewById(R.id.mPickDate);//button for showing date picker dialog
@@ -97,8 +99,9 @@ public class InfoScreenActivity extends AppCompatActivity {
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
-
-
+       dd=mDay;
+        mm=mMonth+1;
+        yy=mYear;
 
         // display the current date
         updateDisplay();
@@ -118,6 +121,24 @@ public class InfoScreenActivity extends AppCompatActivity {
         updateDisplayTime();
 
 
+        Button add = (Button) findViewById(R.id.add);
+        add.setOnClickListener(new View.OnClickListener() {
+                                   @Override
+                                   public void onClick(View view) {
+                                       Intent n= new Intent(InfoScreenActivity.this,DescriptionActivity.class);
+                                       Bundle extras = new Bundle();
+                                       extras.putString("Issue",device_issue);
+                                       extras.putString("Problem",problem);
+                                       extras.putString("Price",cost);
+                                       n.putExtras(extras);
+                                       startActivity(n);
+                                   }
+                               }
+
+
+        );
+
+
 
 
 
@@ -127,7 +148,8 @@ public class InfoScreenActivity extends AppCompatActivity {
         msg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int flag=0;
+                int flag = 0;
+
                 EditText name = (EditText) findViewById(R.id.user_name);
                 EditText address = (EditText) findViewById(R.id.address);
                 EditText phone = (EditText) findViewById(R.id.phone_num);
@@ -181,7 +203,22 @@ public class InfoScreenActivity extends AppCompatActivity {
 
                 }
 
-                if(flag==0) {
+                 if(d==1)
+                {
+
+                    Snackbar.make(v, "                !!   Please Enter a Valid Date  !! ",
+                            Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }
+                 if(t==1)
+                {
+
+                    Snackbar.make(v, "                !!   Please Enter a Valid Time  !! ",
+                            Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }
+
+
+
+                if(flag==0 && t==0 && d==0) {
                    /* Intent i = new Intent(Intent.ACTION_SENDTO);
                     i.setData(Uri.parse("mailto:"));
 
@@ -245,12 +282,20 @@ public class InfoScreenActivity extends AppCompatActivity {
 
     //update month day year
     private void updateDisplay() {
-        mPickDate.setText(//this is the edit text where you want to show the selected date
-                new StringBuilder()
-                        // Month is 0 based so add 1
-                        .append(mDay).append("-")
-                        .append(mMonth + 1).append("-")
-                        .append(mYear).append(""));
+            if(mDay<dd || mMonth+1<mm || mYear<yy) {
+                d=1;
+            mPickDate.setText("Enter a valid Date");
+            Toast.makeText(this, "Unfortunately we don't have a time machine !!", Toast.LENGTH_SHORT).show();
+        }
+        else {
+                d=0;
+                mPickDate.setText(//this is the edit text where you want to show the selected date
+                        new StringBuilder()
+                                // Month is 0 based so add 1
+                                .append(mDay).append("-")
+                                .append(mMonth + 1).append("-")
+                                .append(mYear).append(""));
+            }
 
 
         //.append(mMonth + 1).append("-")
@@ -260,18 +305,38 @@ public class InfoScreenActivity extends AppCompatActivity {
 
 
     private void updateDisplayTime() {
+        String newtime;
+        int flag=0;
         if(hr< 12) {
             ampm = "AM";
         } else {
             ampm = "PM";
         }
-        time.setText(//this is the edit text where you want to show the selected date
-                new StringBuilder()
-                        // Month is 0 based so add 1
-                        .append(hr).append(":")
-                        .append(min).append(" ")
-                         .append(ampm));
-
+        if(min<10)
+            newtime= "0"+String.valueOf(min);
+        else
+            newtime=String.valueOf(min);
+        if(hr<9)
+            flag=1;
+        if(hr>=19) {
+            if ((hr + min) > 19)
+                flag = 1;
+            else
+                flag=0;
+        }
+        if(flag==1) {
+            t=1;
+            time.setText("Enter between 9 AM to 7 PM");
+        }
+        else {
+            t=0;
+            time.setText(//this is the edit text where you want to show the selected date
+                    new StringBuilder()
+                            // Month is 0 based so add 1
+                            .append(hr).append(":")
+                            .append(newtime).append(" ")
+                            .append(ampm));
+        }
     }
         // the call back received when the user "sets" the date in the dialog
     private DatePickerDialog.OnDateSetListener mDateSetListener =

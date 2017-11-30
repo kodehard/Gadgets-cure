@@ -108,10 +108,12 @@
         <EditText
             android:id="@+id/editText"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/description"
             android:layout_margin="20dp"
             android:background="@drawable/edittext"
+            android:padding="6dp"
+            android:inputType="textMultiLine"
             />
 
 
@@ -126,6 +128,7 @@
     android:textSize="16sp"
     android:textColor="@color/white"
     android:text="Next"
-    android:background="@color/colorPrimary"/>
+    android:background="@drawable/edittext"
+    android:backgroundTint="@color/authui_colorPrimary"/>
 
 </RelativeLayout>
