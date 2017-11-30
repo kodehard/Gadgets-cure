@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.gadgetscure.gadgetscure.Receipt">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/Bookingtoolbar"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:title="Booking Summary"
+        app:theme="@style/ThemeOverlay.AppCompat"
+
+        />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Bookingtoolbar"
+        android:layout_marginTop="21dp"
+        android:text="!! Your Booking has been succesful !!"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/tick"
+        android:background="@mipmap/tick"/>
+    <LinearLayout
+        android:id="@+id/receipt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/tick"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="16dp">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Receipt No : "
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/UserId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="UserId"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/summary"
+        android:layout_below="@+id/receipt"
+        android:text="Summary : "
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginTop="21dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="4dp"
+        android:textStyle="italic"
+        />
+
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/summary"
+            android:layout_marginLeft="16dp"
+            android:text="Summary : "
+            android:textSize="16sp" />
+
+
+
+</RelativeLayout>

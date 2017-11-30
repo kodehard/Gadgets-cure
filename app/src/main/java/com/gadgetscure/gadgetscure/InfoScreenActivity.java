@@ -20,10 +20,14 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Random;
+
 public class InfoScreenActivity extends AppCompatActivity {
-    public String device_issue, problem, cost;
+    public String device_issue, problem, cost,description;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
+    private final Random rand = new Random();
+
 
 
     @Override
@@ -53,6 +57,7 @@ public class InfoScreenActivity extends AppCompatActivity {
 
         problem = extras.getString("Problem");
         cost = extras.getString("Price");
+        description = extras.getString("Description");
 
         TextView deviceissue = (TextView) findViewById(R.id.problem);
         TextView problem_type = (TextView) findViewById(R.id.problemtype);
@@ -60,6 +65,8 @@ public class InfoScreenActivity extends AppCompatActivity {
         deviceissue.setText(device_issue);
         problem_type.setText(problem);
         price.setText(cost);
+        TextView Description = (TextView) findViewById(R.id.description);
+        Description.setText(description);
 
 
 
@@ -80,16 +87,22 @@ public class InfoScreenActivity extends AppCompatActivity {
                 String Date = date.getText().toString();
                 EditText time = (EditText) findViewById(R.id.time);
                 String Time = time.getText().toString();
+                long x = 10011100011000l;
+                long y = 10001001000101l;
+                long n = x+((long)(rand.nextDouble()*(y-x)));
 
 
-                String message = " Name : " + Name +
+
+
+                String message = "Ref : "+n+",  Name : " + Name +
                         ",  Address : " + Address +
                         ",  Phone number : " + Phone +
                         ",  Pickup Date : " + Date +
                         ",  Pickup Time : " + Time +
                         ",  Device/Problem : " + device_issue +
                         ",  Problem : " + problem +
-                        ",  Inspection Charges : " + cost;
+                        ",  Inspection Charges : " + cost+
+                        ",  Description : "+description;
 
                 if (TextUtils.isEmpty(Name) || TextUtils.isEmpty(Address) || TextUtils.isEmpty(Phone) || TextUtils.isEmpty(Date) || TextUtils.isEmpty(Time)) {
 
@@ -131,8 +144,26 @@ public class InfoScreenActivity extends AppCompatActivity {
 
                     mDatabaseReference.push().setValue(message);
 
-                    Intent i = new Intent(InfoScreenActivity.this, MainActivity.class);
+                    //FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
+                   // Toast.makeText(InfoScreenActivity.this, "" + currentFirebaseUser.getUid(), Toast.LENGTH_SHORT).show();
+                    message = "Name : " + Name +
+                            "\nAddress : " + Address +
+                            "\nPhone number : " + Phone +
+                            "\nPickup Date : " + Date +
+                            "\nPickup Time : " + Time +
+                            "\nDevice/Problem : " + device_issue +
+                            "\nProblem : " + problem +
+                            "\nInspection Charges : " + cost;
+
+
+                    Intent i = new Intent(InfoScreenActivity.this, Receipt.class);
+                    Bundle extras = new Bundle();
+                    extras.putString("UserId" ,String.valueOf(n));
+                    extras.putString("Message",message);
+                    i.putExtras(extras);
                     startActivity(i);
+
+
 
 
 

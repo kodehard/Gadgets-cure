@@ -25,11 +25,17 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+        <activity android:name=".DescriptionActivity"
+            android:parentActivityName=".MainActivity"></activity>
         <activity
             android:name=".InfoScreenActivity"
             android:label="User Info"
-            android:parentActivityName=".MainActivity"></activity>
-       <!-- <activity android:name=".MainActivity"></activity> -->
+            android:parentActivityName=".MainActivity" />
+        <!-- <activity android:name=".MainActivity"></activity> -->
+        <activity
+            android:name=".Receipt"
+            android:parentActivityName=".MainActivity" />
+
     </application>
 
 </manifest>

@@ -91,7 +91,7 @@ public class IssuesActivity extends AppCompatActivity {
                     context = rv.getContext();
 
 
-                    Intent i = new Intent(context, InfoScreenActivity.class);
+                    Intent i = new Intent(context, DescriptionActivity.class);
                     Bundle extras = new Bundle();
 
 
