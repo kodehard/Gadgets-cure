@@ -2,6 +2,7 @@ package com.gadgetscure.gadgetscure;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
@@ -29,16 +31,21 @@ import java.util.Random;
 
 
 public class InfoScreenActivity extends AppCompatActivity {
-    public String device_issue, problem, cost,description,Date;
+    public String device_issue, problem, cost,description,Date,Time,ampm;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
         private final Random rand = new Random();
 
     private EditText mPickDate;
-    private int mYear;
+    private EditText time;
+   private int mYear;
     private int mMonth;
-    private int mDay;
+   private int mDay;
+    private int hr,min;
     static final int DATE_DIALOG_ID = 0;
+    static final int TIME_DIALOG_ID=1;
+
+
 
 
 
@@ -82,7 +89,7 @@ public class InfoScreenActivity extends AppCompatActivity {
 
         mPickDate = (EditText) findViewById(R.id.mPickDate);//button for showing date picker dialog
         mPickDate.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) { showDialog(DATE_DIALOG_ID); }
+           public void onClick(View v) { showDialog(DATE_DIALOG_ID); }
         });
 
         // get the current date
@@ -92,8 +99,25 @@ public class InfoScreenActivity extends AppCompatActivity {
         mDay = c.get(Calendar.DAY_OF_MONTH);
 
 
+
         // display the current date
         updateDisplay();
+
+         time = (EditText) findViewById(R.id.time);
+        time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               // showTimePickerDialog(view);
+                showDialog(TIME_DIALOG_ID);
+            }
+        });
+        Calendar initialTime = Calendar.getInstance();
+
+        hr = initialTime.get(Calendar.HOUR_OF_DAY);
+        min= initialTime.get(Calendar.MINUTE);
+        updateDisplayTime();
+
+
 
 
 
@@ -114,8 +138,8 @@ public class InfoScreenActivity extends AppCompatActivity {
                // EditText date = (EditText) findViewById(R.id.datetext);
                 //String Date = date.getText().toString();
                 Date= mPickDate.getText().toString();
-                EditText time = (EditText) findViewById(R.id.time);
-                String Time = time.getText().toString();
+               // EditText time = (EditText) findViewById(R.id.time);
+               Time = time.getText().toString();
                 long x = 10011100011000l;
                 long y = 10001001000101l;
                 long n = x+((long)(rand.nextDouble()*(y-x)));
@@ -204,23 +228,29 @@ public class InfoScreenActivity extends AppCompatActivity {
             }
         });
     }
+
+
     @Override
     protected Dialog onCreateDialog(int id) {
-        switch (id) {
-            case DATE_DIALOG_ID:
+        if(id== DATE_DIALOG_ID)
                 return new DatePickerDialog(this, mDateSetListener, mYear, mMonth, mDay);
+      else if(id==TIME_DIALOG_ID) {
+            return new TimePickerDialog(this, mTimeSetListener, hr, min,false);
         }
+
         return null;
     }
+
+
 
     //update month day year
     private void updateDisplay() {
         mPickDate.setText(//this is the edit text where you want to show the selected date
                 new StringBuilder()
                         // Month is 0 based so add 1
-                        .append(mYear).append("-")
+                        .append(mDay).append("-")
                         .append(mMonth + 1).append("-")
-                        .append(mDay).append(""));
+                        .append(mYear).append(""));
 
 
         //.append(mMonth + 1).append("-")
@@ -228,7 +258,22 @@ public class InfoScreenActivity extends AppCompatActivity {
         //.append(mYear).append(" "));
     }
 
-    // the call back received when the user "sets" the date in the dialog
+
+    private void updateDisplayTime() {
+        if(hr< 12) {
+            ampm = "AM";
+        } else {
+            ampm = "PM";
+        }
+        time.setText(//this is the edit text where you want to show the selected date
+                new StringBuilder()
+                        // Month is 0 based so add 1
+                        .append(hr).append(":")
+                        .append(min).append(" ")
+                         .append(ampm));
+
+    }
+        // the call back received when the user "sets" the date in the dialog
     private DatePickerDialog.OnDateSetListener mDateSetListener =
             new DatePickerDialog.OnDateSetListener() {
                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -238,6 +283,18 @@ public class InfoScreenActivity extends AppCompatActivity {
                     updateDisplay();
                 }
             };
+
+    private TimePickerDialog.OnTimeSetListener mTimeSetListener =
+            new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker view, int i, int i1) {
+                    hr=i;
+                    min=i1;
+                    updateDisplayTime();
+                }
+
+            };
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -259,7 +316,6 @@ public class InfoScreenActivity extends AppCompatActivity {
         }
 
     }
-
 
 }
 

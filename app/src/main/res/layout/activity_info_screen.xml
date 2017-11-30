@@ -86,7 +86,8 @@
                 android:hint="H.no., Street, Colony, Area"
                 android:backgroundTint="@color/colorPrimary"
                 android:textSize="18sp"
-                android:textStyle="italic" />
+                android:textStyle="italic"
+                android:inputType="textPostalAddress"/>
         </LinearLayout>
 
         <LinearLayout
@@ -113,7 +114,8 @@
                 android:layout_marginLeft="16dp"
                 android:backgroundTint="@color/colorPrimary"
                 android:textSize="18sp"
-                android:textStyle="italic" />
+                android:textStyle="italic"
+                android:inputType="phone"/>
         </LinearLayout>
 
         <LinearLayout
@@ -143,6 +145,7 @@
                 android:textStyle="italic"
                 android:clickable="true"
                 android:focusable="false"
+                android:inputType="date"
 
                 />
         </LinearLayout>
@@ -171,7 +174,10 @@
                 android:layout_marginLeft="16dp"
                 android:backgroundTint="@color/colorPrimary"
                 android:textSize="18sp"
-                android:textStyle="italic" />
+                android:textStyle="italic"
+                android:clickable="true"
+                android:focusable="false"
+                />
         </LinearLayout>
 
 
