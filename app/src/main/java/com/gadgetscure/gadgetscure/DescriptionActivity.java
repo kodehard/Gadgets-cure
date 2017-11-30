@@ -58,7 +58,7 @@ public class DescriptionActivity extends AppCompatActivity {
                                         describe.setSelection(0);
                                         description = describe.getText().toString();
                                         if(TextUtils.isEmpty(description))
-                                            Toast.makeText(DescriptionActivity.this," A description would be more helpful !!",Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(DescriptionActivity.this," A description would be more helpful !!",Toast.LENGTH_LONG).show();
 
                                         Intent i = new Intent(DescriptionActivity.this, InfoScreenActivity.class);
                                         Bundle extras = new Bundle();
