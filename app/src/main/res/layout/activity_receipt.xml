@@ -22,12 +22,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/Bookingtoolbar"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="61dp"
         android:text=" Your Booking is succesful !!"
         android:layout_centerHorizontal="true"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
+
         />
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="40dp"
@@ -70,11 +71,12 @@
         android:layout_below="@+id/receipt"
         android:text="Summary : "
         android:textColor="@color/black"
+
         android:textSize="16sp"
         android:layout_marginTop="21dp"
         android:layout_marginLeft="36dp"
         android:layout_marginBottom="4dp"
-        android:textStyle="italic"
+        android:textStyle="bold"
         />
 
         <TextView
@@ -84,7 +86,9 @@
             android:layout_below="@+id/summary"
             android:layout_marginLeft="36dp"
             android:text="Summary : "
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:textStyle="italic"/>
 
 
 

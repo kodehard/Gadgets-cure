@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<group android:id="@+id/group1">
+    <item android:id="@+id/contact"
+        android:title="Contact Us"
+        android:icon="@drawable/conatct"/>
+    <item android:id="@+id/rate"
+        android:title="Rate Us"
+        android:icon="@drawable/rate"/>
+    <item android:id="@+id/review"
+        android:title="Review"
+        android:icon="@drawable/review"/>
+    <item
+        android:id="@+id/sign_out"
+        android:title="sign_out"
+        android:icon="@drawable/logout"/>
+       <!-- app:showAsAction="never" -->
+
+</group>
+
+
+</menu>

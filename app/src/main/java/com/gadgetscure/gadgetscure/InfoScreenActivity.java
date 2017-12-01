@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -100,7 +101,7 @@ public class InfoScreenActivity extends AppCompatActivity {
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
        dd=mDay;
-        mm=mMonth+1;
+        mm=mMonth;
         yy=mYear;
 
         // display the current date
@@ -121,7 +122,7 @@ public class InfoScreenActivity extends AppCompatActivity {
         updateDisplayTime();
 
 
-        Button add = (Button) findViewById(R.id.add);
+        ImageView add = (ImageView) findViewById(R.id.add);
         add.setOnClickListener(new View.OnClickListener() {
                                    @Override
                                    public void onClick(View view) {
@@ -282,7 +283,7 @@ public class InfoScreenActivity extends AppCompatActivity {
 
     //update month day year
     private void updateDisplay() {
-            if(mDay<dd || mMonth+1<mm || mYear<yy) {
+            if(mDay<dd || mMonth<mm || mYear<yy) {
                 d=1;
             mPickDate.setText("Enter a valid Date");
             Toast.makeText(this, "Unfortunately we don't have a time machine !!", Toast.LENGTH_SHORT).show();

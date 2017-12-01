@@ -16,6 +16,13 @@ import android.widget.TextView;
 
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
+    private final String username;
+
+
+    public  RecyclerAdapter(String musername)
+    {
+        username=musername;
+    }
 
 
     Context context;
@@ -94,10 +101,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                     context.startActivity(i);
 
 
-                    //Snackbar.make(v, "Click detected on item " + position,
-                    //      Snackbar.LENGTH_LONG)
-                    ///    .setAction("Action", null).show();
-
+                   // Toast.makeText(context,username,Toast.LENGTH_SHORT).show();
                 }
             });
 

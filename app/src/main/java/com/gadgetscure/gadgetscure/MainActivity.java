@@ -4,14 +4,20 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
@@ -39,22 +45,94 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private static final int RC_SIGN_IN=1;
 
+   private String mUsername,memail;
+
+   // private TextView profilename;
+    // private TextView email;
+
+
+
+
+
+
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.main);
+
+
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
+
+
+
+
+
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         toolbar.setTitle("Gadgets Cure");
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
+
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+
+        // drawerLayout =(DrawerLayout) findViewById(R.id.drawer);
+       // toggle= new ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close);
+       // drawerLayout.addDrawerListener(toggle);
+
+
+      // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        NavigationView nv =(NavigationView) findViewById(R.id.nav);
+
+        nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id =item.getItemId();
+                if(id==R.id.sign_out)
+                AuthUI.getInstance().signOut(MainActivity.this);
+                else if(id == R.id.contact) {
+                    Toast.makeText(MainActivity.this, "Under Construction " + mUsername, Toast.LENGTH_SHORT).show();
+                    LayoutInflater inflater = MainActivity.this.getLayoutInflater();
+
+                    View v = inflater.inflate(R.layout.header,null);
+                     TextView profilename = (TextView) v.findViewById(R.id.profile_name);
+                     TextView  uemail= (TextView) v.findViewById(R.id.email);
+
+                    profilename.setText(mUsername);
+                    uemail.setText(memail);
+
+                }
+                else if(id== R.id.rate)
+                        Toast.makeText(MainActivity.this,"Under construction ",Toast.LENGTH_SHORT).show();
+                else if(id == R.id.review)
+                        Toast.makeText(MainActivity.this,"Under construction ",Toast.LENGTH_SHORT).show();
+
+                drawerLayout.closeDrawers();
+
+                return true;
+            }
+        });
+
+
+
+
+
+
+
 
 
 
@@ -88,13 +166,8 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
 
 
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new RecyclerAdapter();
-        recyclerView.setAdapter(adapter);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -104,10 +177,19 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                                       // onSignedInInitialize(user.getDisplayName());
+                    //onSignedInInitialize(user.getDisplayName(),user.getEmail());
+                    mUsername=user.getDisplayName();
+                    memail=user.getEmail();
+
                 } else {
                     // User is signed out
-                    // onSignedOutCleanup();
+                     mUsername="Anonymous";
+                    memail="abc@xyz.com";
+                    //profilename.setText(mUsername);
+                    //uemail.setText(memail);
+
+
+
                     startActivityForResult(
                             AuthUI.getInstance()
                                     .createSignInIntentBuilder().setIsSmartLockEnabled(false).setProviders(
@@ -119,10 +201,30 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
             }
         };
 
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        adapter = new RecyclerAdapter(mUsername);
+        recyclerView.setAdapter(adapter);
+
+
+
+
 
 
 
     }
+
+
+
+
+
+
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -135,17 +237,11 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
         switch (item.getItemId()) {
             case R.id.sign_out_menu:
                 AuthUI.getInstance().signOut(this);
-                return true;
+               return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-
-    }
-
-
-
-
-
+       }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

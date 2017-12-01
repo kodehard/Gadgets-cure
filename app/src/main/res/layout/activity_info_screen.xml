@@ -57,7 +57,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="4dp"
-                android:backgroundTint="#E1F5FE"
                 android:textSize="18sp"
                 android:textStyle="italic"
                 android:background="@drawable/edittext"
@@ -128,7 +127,6 @@
                 android:id="@+id/phone_num"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#E1F5FE"
                 android:textSize="18sp"
                 android:textStyle="italic"
                 android:inputType="phone"
@@ -159,7 +157,6 @@
                  android:hint="dd/mm/yyyy"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:backgroundTint="#E1F5FE"
                 android:textSize="16sp"
                 android:textStyle="italic"
                 android:clickable="true"
@@ -193,7 +190,7 @@
                 android:hint="from 9:00 a.m to 7:00 p.m"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:backgroundTint="#E1F5FE"
+
                 android:textSize="18sp"
                 android:textStyle="italic"
                 android:clickable="true"
@@ -292,7 +289,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            >
 
 
             <TextView
@@ -307,22 +304,29 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-                <Button
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/add"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Add \nDescription"
-                    android:textSize="14sp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_marginRight="32dp"
                     android:layout_marginEnd="32dp"
                     android:layout_below="@+id/des"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:background="@drawable/edittext"
+                    android:clickable="true"
+                    android:background="@drawable/review"
                     android:padding="8dp"
-                    android:backgroundTint="#BDBDBD"
+                    android:backgroundTint="#6D4C41"
                     />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Describe"
+                android:layout_below="@+id/add"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="30dp"
+                android:textColor="@color/black"/>
 
 
             <TextView
@@ -338,25 +342,34 @@
                 android:layout_below="@+id/des"/>
         </RelativeLayout>
 
-
-
         <Button
             android:id="@+id/msg"
 
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
+            android:layout_width="70dp"
+            android:layout_height="75dp"
+            android:layout_marginLeft="32dp"
             android:layout_marginTop="21dp"
-            android:layout_marginBottom="50dp"
-            android:background="@drawable/button_shape"
-            android:shadowColor="#3913F2"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/send"
+            android:backgroundTint="#6D4C41"
             android:shadowDx="0"
             android:shadowDy="0"
             android:shadowRadius="5"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Book services"
-            android:textColor="#FFFFFF"
-            android:textSize="13sp" />
-    </LinearLayout>
+            android:textStyle="italic"
+            android:textSize="14sp"
+            android:layout_marginBottom="50dp"
+            android:layout_marginLeft="16dp"
+            android:textColor="@color/black"/>
+
+
+
+
+           </LinearLayout>
         </ScrollView>
     </RelativeLayout>
 
