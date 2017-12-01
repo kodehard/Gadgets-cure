@@ -39,7 +39,7 @@ public class InfoScreenActivity extends AppCompatActivity {
     private int t=0,d=0;
 
     private  int dd,mm,yy;
-    private EditText mPickDate;
+    private EditText mPickDate,name;
     private EditText time;
    private int mYear;
     private int mMonth;
@@ -47,6 +47,9 @@ public class InfoScreenActivity extends AppCompatActivity {
     private int hr,min;
     static final int DATE_DIALOG_ID = 0;
     static final int TIME_DIALOG_ID=1;
+    String Name;
+    String username = MainActivity.getMyString();
+
 
 
 
@@ -69,6 +72,8 @@ public class InfoScreenActivity extends AppCompatActivity {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
 
         mDatabaseReference = mFirebaseDatabase.getReference().child("messages");
+
+
 
 
 
@@ -140,6 +145,10 @@ public class InfoScreenActivity extends AppCompatActivity {
         );
 
 
+        name = (EditText) findViewById(R.id.user_name);
+        name.setText(username);
+
+
 
 
 
@@ -151,18 +160,16 @@ public class InfoScreenActivity extends AppCompatActivity {
             public void onClick(View v) {
                 int flag = 0;
 
-                EditText name = (EditText) findViewById(R.id.user_name);
+               // EditText name = (EditText) findViewById(R.id.user_name);
                 EditText address = (EditText) findViewById(R.id.address);
                 EditText phone = (EditText) findViewById(R.id.phone_num);
-                String Name = name.getText().toString();
+                Name = name.getText().toString();
 
                 String Address = address.getText().toString();
                 String Phone = phone.getText().toString();
-               // EditText date = (EditText) findViewById(R.id.datetext);
-                //String Date = date.getText().toString();
+
                 Date= mPickDate.getText().toString();
-               // EditText time = (EditText) findViewById(R.id.time);
-               Time = time.getText().toString();
+                Time = time.getText().toString();
                 long x = 10011100011000l;
                 long y = 10001001000101l;
                 long n = x+((long)(rand.nextDouble()*(y-x)));
@@ -196,7 +203,7 @@ public class InfoScreenActivity extends AppCompatActivity {
 
                     flag=1;
                 }
-                else if(!Name.matches("[a-zA-Z]+")){
+                else if(!Name.matches("^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$")){
                     flag=1;
                     Snackbar.make(v, "                !!   Please Enter a Valid Name   !! ",
                             Snackbar.LENGTH_LONG).setAction("Action", null).show();

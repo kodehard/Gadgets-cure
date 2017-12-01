@@ -3,9 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="160dp"
-    android:background="@mipmap/heading"
-    android:paddingLeft="10dp"
+    android:layout_height="170dp"
+    android:background="@mipmap/heading1"
     android:weightSum="1"
     tools:context="com.gadgetscure.gadgetscure.MainActivity">
 
@@ -15,8 +14,8 @@
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:padding="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="45dp"
         android:src="@mipmap/profile" />
 
 
@@ -24,24 +23,23 @@
         android:id="@+id/profile_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" Arya Start "
-        android:textColor="@color/white"
+        android:text=" Arya Stark "
         android:textStyle="bold"
         android:textSize="15sp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="1dp"
         android:layout_marginLeft="14dp"
         android:layout_marginBottom="0dp"
-        android:background="#8D6E63"
-         />
+        android:textColor="@color/white"
+        />
+        <!--android:background="#D7CCC8" -->
+
     <TextView
         android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=" rishabh7awasthi@gmail.com "
-        android:textColor="@color/white"
-
-
+        android:textColor="@color/black"
+        android:layout_marginLeft="3dp"
         android:layout_marginTop="2dp"
-        android:background="#8D6E63"
         />
 </LinearLayout>

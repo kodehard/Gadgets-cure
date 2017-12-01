@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private static final int RC_SIGN_IN=1;
 
-   private String mUsername,memail;
+   private static String mUsername,memail;
     private TextView nav_user,nav_mail;
 
 
@@ -112,13 +112,13 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
                 if(id==R.id.sign_out)
                 AuthUI.getInstance().signOut(MainActivity.this);
                 else if(id == R.id.contact) {
-                    Toast.makeText(MainActivity.this, "Under Construction " + mUsername, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, mUsername+" It's Under Construction " , Toast.LENGTH_SHORT).show();
 
                 }
                 else if(id== R.id.rate)
-                        Toast.makeText(MainActivity.this,"Under construction ",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, mUsername+" It's Under Construction " , Toast.LENGTH_SHORT).show();
                 else if(id == R.id.review)
-                        Toast.makeText(MainActivity.this,"Under construction ",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, mUsername+" It's Under Construction " , Toast.LENGTH_SHORT).show();
 
                 drawerLayout.closeDrawers();
 
@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new RecyclerAdapter(mUsername);
+        adapter = new RecyclerAdapter();
         recyclerView.setAdapter(adapter);
 
 
@@ -229,6 +229,10 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
 
     }
 
+
+    public static String getMyString(){
+        return mUsername;
+    }
 
 
 

@@ -16,13 +16,7 @@ import android.widget.TextView;
 
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
-    private final String username;
 
-
-    public  RecyclerAdapter(String musername)
-    {
-        username=musername;
-    }
 
 
     Context context;
@@ -100,8 +94,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                     i.putExtras(extras);
                     context.startActivity(i);
 
-
-                   // Toast.makeText(context,username,Toast.LENGTH_SHORT).show();
                 }
             });
 
