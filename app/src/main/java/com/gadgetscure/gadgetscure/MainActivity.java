@@ -12,7 +12,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -46,6 +45,10 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
     private static final int RC_SIGN_IN=1;
 
    private String mUsername,memail;
+    private TextView nav_user,nav_mail;
+
+
+
 
    // private TextView profilename;
     // private TextView email;
@@ -97,6 +100,10 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
         //getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         NavigationView nv =(NavigationView) findViewById(R.id.nav);
+        View hView =  nv.getHeaderView(0);
+        nav_user = (TextView)hView.findViewById(R.id.profile_name);
+        nav_mail = (TextView)hView.findViewById(R.id.email);
+
 
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -106,14 +113,6 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
                 AuthUI.getInstance().signOut(MainActivity.this);
                 else if(id == R.id.contact) {
                     Toast.makeText(MainActivity.this, "Under Construction " + mUsername, Toast.LENGTH_SHORT).show();
-                    LayoutInflater inflater = MainActivity.this.getLayoutInflater();
-
-                    View v = inflater.inflate(R.layout.header,null);
-                     TextView profilename = (TextView) v.findViewById(R.id.profile_name);
-                     TextView  uemail= (TextView) v.findViewById(R.id.email);
-
-                    profilename.setText(mUsername);
-                    uemail.setText(memail);
 
                 }
                 else if(id== R.id.rate)
@@ -180,11 +179,15 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
                     //onSignedInInitialize(user.getDisplayName(),user.getEmail());
                     mUsername=user.getDisplayName();
                     memail=user.getEmail();
+                    nav_user.setText(mUsername);
+                    nav_mail.setText(memail);
 
                 } else {
                     // User is signed out
                      mUsername="Anonymous";
                     memail="abc@xyz.com";
+                    nav_user.setText(mUsername);
+                    nav_mail.setText(memail);
                     //profilename.setText(mUsername);
                     //uemail.setText(memail);
 
@@ -208,6 +211,15 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
 
         adapter = new RecyclerAdapter(mUsername);
         recyclerView.setAdapter(adapter);
+
+
+
+
+
+
+
+
+
 
 
 
