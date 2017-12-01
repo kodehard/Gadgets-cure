@@ -19,6 +19,7 @@ import com.firebase.ui.auth.AuthUI;
 
 public class DescriptionActivity extends AppCompatActivity {
     private String device_issue, problem, cost, description;
+    private EditText describe;
 
 
     @Override
@@ -49,13 +50,22 @@ public class DescriptionActivity extends AppCompatActivity {
         deviceissue.setText(device_issue);
         problem_type.setText(problem);
 
+
+        describe = (EditText) findViewById(R.id.editText);
+        describe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                describe.setFocusableInTouchMode(true);
+            }
+        });
+
+
         Button next = (Button) findViewById(R.id.next);
 
         next.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        EditText describe = (EditText) findViewById(R.id.editText);
-                                        describe.setSelection(0);
+                                                                             //  describe.setSelection(0);
                                         description = describe.getText().toString();
                                         if(TextUtils.isEmpty(description))
                                             Toast.makeText(DescriptionActivity.this," A description would be more helpful !!",Toast.LENGTH_LONG).show();

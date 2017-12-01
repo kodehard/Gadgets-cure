@@ -34,7 +34,7 @@ public class Receipt extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         v= findViewById(R.id.UserId);
-        Toast.makeText(Receipt.this, "!! Take a Screenshot or note the reciept No !!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(Receipt.this, "!! Take a Screenshot or note the reciept No !!", Toast.LENGTH_LONG).show();
 
         Snackbar.make(v, "!! Take a Screenshot or note the reciept No !!",
                 Snackbar.LENGTH_LONG).setAction("Action", null).show();

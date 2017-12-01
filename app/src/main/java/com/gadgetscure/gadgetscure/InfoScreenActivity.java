@@ -39,7 +39,7 @@ public class InfoScreenActivity extends AppCompatActivity {
     private int t=0,d=0;
 
     private  int dd,mm,yy;
-    private EditText mPickDate,name;
+    private EditText mPickDate,name,address,phone;
     private EditText time;
    private int mYear;
     private int mMonth;
@@ -47,7 +47,7 @@ public class InfoScreenActivity extends AppCompatActivity {
     private int hr,min;
     static final int DATE_DIALOG_ID = 0;
     static final int TIME_DIALOG_ID=1;
-    String Name;
+    String Name,Phone,Address;
     String username = MainActivity.getMyString();
 
 
@@ -146,7 +146,34 @@ public class InfoScreenActivity extends AppCompatActivity {
 
 
         name = (EditText) findViewById(R.id.user_name);
+        address = (EditText) findViewById(R.id.address);
+        phone = (EditText) findViewById(R.id.phone_num);
+
+
         name.setText(username);
+        name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                name.setFocusableInTouchMode(true);
+            }
+        });
+        address.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                address.setFocusableInTouchMode(true);
+            }
+        });
+
+
+        phone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                phone.setFocusableInTouchMode(true);
+            }
+        });
+
+
+
 
 
 
@@ -160,13 +187,10 @@ public class InfoScreenActivity extends AppCompatActivity {
             public void onClick(View v) {
                 int flag = 0;
 
-               // EditText name = (EditText) findViewById(R.id.user_name);
-                EditText address = (EditText) findViewById(R.id.address);
-                EditText phone = (EditText) findViewById(R.id.phone_num);
-                Name = name.getText().toString();
+                             Name = name.getText().toString();
 
-                String Address = address.getText().toString();
-                String Phone = phone.getText().toString();
+                 Address = address.getText().toString();
+                 Phone = phone.getText().toString();
 
                 Date= mPickDate.getText().toString();
                 Time = time.getText().toString();

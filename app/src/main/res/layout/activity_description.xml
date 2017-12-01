@@ -16,11 +16,17 @@
         app:theme="@style/ThemeOverlay.AppCompat"
 
         />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/Bookingtoolbar">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
     <LinearLayout
         android:id="@+id/info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Bookingtoolbar"
         android:orientation="vertical">
 
     <LinearLayout
@@ -114,7 +120,7 @@
             android:layout_margin="20dp"
             android:background="@drawable/edittext"
             android:padding="6dp"
-            android:inputType="textMultiLine"
+            android:clickable="true"
             />
 
 
@@ -130,6 +136,8 @@
     android:backgroundTint="#795548"
     android:layout_marginLeft="36dp"
     android:layout_marginTop="10dp"
-    android:layout_marginBottom="16dp" />
-
+    android:layout_marginBottom="16dp"
+    android:focusable="false"/>
+        </RelativeLayout>
+</ScrollView>
 </RelativeLayout>
