@@ -1,6 +1,9 @@
 package com.gadgetscure.gadgetscure;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,20 +25,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 
 
@@ -69,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-       
+
 
 
 
@@ -101,9 +106,19 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
         nav_mail = (TextView)hView.findViewById(R.id.email);
         nav_picker = (TextView)hView.findViewById(R.id.picker);
 
-        //nav_dp=(ImageView)hView.findViewById(R.id.dp);
+        nav_dp=(ImageView)hView.findViewById(R.id.dp);
 
-        mFirebaseStorage = FirebaseStorage.getInstance();
+        SharedPreferences myPrefrence = getPreferences(MODE_PRIVATE);
+        String imageS = myPrefrence.getString("imagePreferance", "");
+        Bitmap imageB;
+        if(!imageS.equals("")) {
+            imageB = decodeToBase64(imageS);
+            nav_dp.setImageBitmap(imageB);
+        }
+
+
+
+    mFirebaseStorage = FirebaseStorage.getInstance();
         mStorageReference = mFirebaseStorage.getReference().child("profile_pics");
 
 
@@ -246,6 +261,23 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
         return mUsername;
     }
 
+    public static Bitmap decodeToBase64(String input) {
+        byte[] decodedByte = Base64.decode(input, 0);
+        return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
+    }
+
+    public static String encodeToBase64(Bitmap image) {
+        Bitmap immage = image;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        immage.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] b = baos.toByteArray();
+        String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
+
+        Log.d("Image Log:", imageEncoded);
+        return imageEncoded;
+    }
+
+
 
 
 
@@ -292,7 +324,29 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
             }}
             if (requestCode == RC_PHOTO_PICKER && resultCode == RESULT_OK)
             {
-                Uri selectedImageUri = data.getData();
+
+                InputStream stream;
+                try {
+                    Toast.makeText(MainActivity.this, "Image saved", Toast.LENGTH_SHORT).show();
+                    stream = getContentResolver().openInputStream(data.getData());
+                    Bitmap realImage = BitmapFactory.decodeStream(stream);
+                    nav_dp.setImageBitmap(realImage);
+
+
+                    SharedPreferences myPrefrence = getPreferences(MODE_PRIVATE);
+                    SharedPreferences.Editor editor = myPrefrence.edit();
+                    editor.putString("imagePreferance", encodeToBase64(realImage));
+
+                    editor.commit();
+                }
+                catch (FileNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+               /* Uri selectedImageUri = data.getData();
 
                 // Get a reference to store file at chat_photos/<FILENAME>
                 StorageReference photoRef = mStorageReference.child(selectedImageUri.getLastPathSegment());
@@ -304,26 +358,18 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
                                 // When the image has successfully uploaded, we get its download URL
                                  downloadUrl = taskSnapshot.getDownloadUrl();
                                 String url=downloadUrl.toString();
-                                setNavDp(url);
+                                Glide.with(nav_dp.getContext())
+                                        .load(url)
+                                        .into(nav_dp);
+
 
 
 
                                 // Set the download URL to the message box, so that the user can send it to the database
 
                                                            }
-                        });
+                        });*/
             }
-
-    }
-    private void setNavDp(String murl)
-    {
-        NavigationView nv =(NavigationView) findViewById(R.id.nav);
-        View hView =  nv.getHeaderView(0);
-        nav_dp=(ImageView)hView.findViewById(R.id.dp);
-
-        Glide.with(nav_dp.getContext())
-                .load(murl)
-                .into(nav_dp);
 
     }
 
