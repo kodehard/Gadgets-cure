@@ -2,6 +2,7 @@ package com.gadgetscure.gadgetscure;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -16,17 +17,23 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
 
@@ -38,28 +45,23 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     RecyclerView.Adapter adapter;
+    private static final String TAG = "MainActivity";
 
     private SliderLayout mDemoSlider;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private FirebaseStorage mFirebaseStorage;
+    private StorageReference mStorageReference;
+
     private static final int RC_SIGN_IN=1;
+    private static final int RC_PHOTO_PICKER = 2;
 
    private static String mUsername,memail;
-    private TextView nav_user,nav_mail;
 
-
-
-
-   // private TextView profilename;
-    // private TextView email;
-
-
-
-
-
-
-
-
+    private TextView nav_user,nav_mail,nav_picker;
+    private ImageView nav_dp;
+    private static Uri downloadUrl;
+    private static  String url="";
 
 
     @Override
@@ -67,17 +69,11 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
+       
 
 
 
-
-
-
-
-
+//
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         toolbar.setTitle("Gadgets Cure");
         toolbar.setTitleTextColor(Color.WHITE);
@@ -103,6 +99,24 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
         View hView =  nv.getHeaderView(0);
         nav_user = (TextView)hView.findViewById(R.id.profile_name);
         nav_mail = (TextView)hView.findViewById(R.id.email);
+        nav_picker = (TextView)hView.findViewById(R.id.picker);
+
+        //nav_dp=(ImageView)hView.findViewById(R.id.dp);
+
+        mFirebaseStorage = FirebaseStorage.getInstance();
+        mStorageReference = mFirebaseStorage.getReference().child("profile_pics");
+
+
+        nav_picker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/jpeg");
+                intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+                startActivityForResult(Intent.createChooser(intent, "Complete action using"), RC_PHOTO_PICKER);
+
+            }
+        });
 
 
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -176,11 +190,11 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    //onSignedInInitialize(user.getDisplayName(),user.getEmail());
                     mUsername=user.getDisplayName();
                     memail=user.getEmail();
                     nav_user.setText(mUsername);
                     nav_mail.setText(memail);
+
 
                 } else {
                     // User is signed out
@@ -188,8 +202,6 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
                     memail="abc@xyz.com";
                     nav_user.setText(mUsername);
                     nav_mail.setText(memail);
-                    //profilename.setText(mUsername);
-                    //uemail.setText(memail);
 
 
 
@@ -241,6 +253,7 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
 
 
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -259,30 +272,99 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
         }
        }
 
+
+
+
+
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) {
                 // Sign-in succeeded, set up the UI
-                Toast.makeText(this, "Signed in!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, " your are Signed in!", Toast.LENGTH_SHORT).show();
             } else if (resultCode == RESULT_CANCELED) {
                 // Sign in was canceled by the user, finish the activity
                 Toast.makeText(this, "Sign in canceled", Toast.LENGTH_SHORT).show();
                 finish();
+            }}
+            if (requestCode == RC_PHOTO_PICKER && resultCode == RESULT_OK)
+            {
+                Uri selectedImageUri = data.getData();
+
+                // Get a reference to store file at chat_photos/<FILENAME>
+                StorageReference photoRef = mStorageReference.child(selectedImageUri.getLastPathSegment());
+
+                // Upload file to Firebase Storage
+                photoRef.putFile(selectedImageUri)
+                        .addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                // When the image has successfully uploaded, we get its download URL
+                                 downloadUrl = taskSnapshot.getDownloadUrl();
+                                String url=downloadUrl.toString();
+                                setNavDp(url);
+
+
+
+                                // Set the download URL to the message box, so that the user can send it to the database
+
+                                                           }
+                        });
             }
-        }
+
+    }
+    private void setNavDp(String murl)
+    {
+        NavigationView nv =(NavigationView) findViewById(R.id.nav);
+        View hView =  nv.getHeaderView(0);
+        nav_dp=(ImageView)hView.findViewById(R.id.dp);
+
+        Glide.with(nav_dp.getContext())
+                .load(murl)
+                .into(nav_dp);
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
         mFirebaseAuth.addAuthStateListener(mAuthStateListener);
 
     }
 
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putString("MyString", url);
+
+        super.onSaveInstanceState(savedInstanceState);
+        // Save UI state changes to the savedInstanceState.
+        // This bundle will be passed to onCreate if the process is
+        // killed and restarted.
+        // etc.
+    }
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        // Always call the superclass so it can restore the view hierarchy
+        super.onRestoreInstanceState(savedInstanceState);
+
+
+        // Restore state members from saved instance
+
+    }
+
+
+
+
+
+
     @Override
     protected void onPause() {
+
+
+
         super.onPause();
 
             mFirebaseAuth.removeAuthStateListener(mAuthStateListener);

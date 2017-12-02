@@ -3,20 +3,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="170dp"
+    android:layout_height="182dp"
     android:background="@mipmap/heading1"
     android:weightSum="1"
     tools:context="com.gadgetscure.gadgetscure.MainActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/dp"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/dummy1"
 
-<de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/item_image"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:padding="4dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="45dp"
-        android:src="@mipmap/profile" />
+            />
+
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/picker"
+        android:text="update Dp"
+        android:textStyle="italic"
+        android:textAllCaps="false"
+        android:textSize="12sp"
+        android:background="@drawable/edittext"
+        android:backgroundTint="#8D6E63"
+        android:layout_marginLeft="22.5dp"
+        android:textColor="@color/white"
+        android:clickable="true"
+        android:layout_below="@id/dp"
+        android:layout_marginTop="1.5dp"
+            android:padding="4.5dp"
+
+        />
+
+
 
 
     <TextView
@@ -26,10 +50,11 @@
         android:text=" Arya Stark "
         android:textStyle="bold"
         android:textSize="15sp"
-        android:layout_marginTop="1dp"
-        android:layout_marginLeft="14dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginBottom="0dp"
         android:textColor="@color/white"
+        android:layout_below="@+id/picker"
         />
         <!--android:background="#D7CCC8" -->
 
@@ -39,7 +64,9 @@
         android:layout_height="wrap_content"
         android:text=" rishabh7awasthi@gmail.com "
         android:textColor="@color/black"
-        android:layout_marginLeft="3dp"
+        android:layout_marginLeft="5dp"
         android:layout_marginTop="2dp"
+        android:layout_below="@+id/profile_name"
         />
+    </RelativeLayout>
 </LinearLayout>

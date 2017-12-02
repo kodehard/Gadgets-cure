@@ -121,6 +121,7 @@
             android:background="@drawable/edittext"
             android:padding="6dp"
             android:clickable="true"
+            android:focusable="false"
             />
 
 
