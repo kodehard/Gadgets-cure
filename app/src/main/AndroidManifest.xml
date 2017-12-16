@@ -25,8 +25,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".DescriptionActivity"
-            android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".DescriptionActivity"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".InfoScreenActivity"
             android:label="User Info"
@@ -35,6 +36,12 @@
         <activity
             android:name=".Receipt"
             android:parentActivityName=".MainActivity" />
+        <activity android:name=".OrderActivity"
+            android:parentActivityName=".MainActivity"></activity>
+        <provider
+            android:name=".data.DbProvider"
+            android:authorities="com.gadgetscure.gadgetscure"
+            android:exported="false" />
 
     </application>
 

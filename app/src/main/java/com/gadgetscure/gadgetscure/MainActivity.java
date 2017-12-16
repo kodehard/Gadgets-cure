@@ -146,8 +146,12 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
                 }
                 else if(id== R.id.rate)
                     Toast.makeText(MainActivity.this, mUsername+" It's Under Construction " , Toast.LENGTH_SHORT).show();
-                else if(id == R.id.review)
-                    Toast.makeText(MainActivity.this, mUsername+" It's Under Construction " , Toast.LENGTH_SHORT).show();
+                else if(id == R.id.history)
+                {
+                    Intent i = new Intent(MainActivity.this,OrderActivity.class);
+                    startActivity(i);
+                }
+
 
                 drawerLayout.closeDrawers();
 
@@ -381,24 +385,6 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
 
     }
 
-
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        
-        super.onSaveInstanceState(savedInstanceState);
-        // Save UI state changes to the savedInstanceState.
-        // This bundle will be passed to onCreate if the process is
-        // killed and restarted.
-        // etc.
-    }
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        // Always call the superclass so it can restore the view hierarchy
-        super.onRestoreInstanceState(savedInstanceState);
-
-
-        // Restore state members from saved instance
-
-    }
 
 
 

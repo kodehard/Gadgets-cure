@@ -3,7 +3,6 @@ package com.gadgetscure.gadgetscure;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -11,7 +10,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 
@@ -34,12 +32,6 @@ public class Receipt extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         v= findViewById(R.id.UserId);
-        Toast.makeText(Receipt.this, "!! Take a Screenshot or note the reciept No !!", Toast.LENGTH_LONG).show();
-
-        Snackbar.make(v, "!! Take a Screenshot or note the reciept No !!",
-                Snackbar.LENGTH_LONG).setAction("Action", null).show();
-        Snackbar.make(v, "!! Take a Screenshot or note the reciept No !!",
-                Snackbar.LENGTH_SHORT).setAction("Action", null).show();
 
 
         Intent intent = getIntent();
@@ -77,9 +69,6 @@ public class Receipt extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-       // Intent startMain = new Intent(Intent.ACTION_MAIN);
-        //startMain.addCategory(Intent.CATEGORY_HOME);
-       // startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         Intent startMain = new Intent(Receipt.this,MainActivity.class);
 
         startActivity(startMain);

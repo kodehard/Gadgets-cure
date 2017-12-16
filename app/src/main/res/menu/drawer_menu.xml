@@ -7,8 +7,8 @@
     <item android:id="@+id/rate"
         android:title="Rate Us"
         android:icon="@drawable/rate"/>
-    <item android:id="@+id/review"
-        android:title="Review"
+    <item android:id="@+id/history"
+        android:title="Bookings"
         android:icon="@drawable/review"/>
     <item
         android:id="@+id/sign_out"

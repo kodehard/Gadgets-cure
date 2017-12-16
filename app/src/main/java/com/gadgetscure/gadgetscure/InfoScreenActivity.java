@@ -3,8 +3,10 @@ package com.gadgetscure.gadgetscure;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +25,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
+import com.gadgetscure.gadgetscure.data.DbContract;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -31,8 +34,10 @@ import java.util.Random;
 
 
 
-public class InfoScreenActivity extends AppCompatActivity {
-    public String device_issue, problem, cost,description,Date,Time,ampm;
+public class InfoScreenActivity extends AppCompatActivity{
+    public String  cost,description,Date,Time,ampm;
+    private static String device_issue, problem;
+    private static  String cur_date;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
         private final Random rand = new Random();
@@ -49,6 +54,9 @@ public class InfoScreenActivity extends AppCompatActivity {
     static final int TIME_DIALOG_ID=1;
     String Name,Phone,Address;
     String username = MainActivity.getMyString();
+    private static final int EXISTING_PET_LOADER = 0;
+    private static long ref_no;
+
 
 
 
@@ -108,6 +116,8 @@ public class InfoScreenActivity extends AppCompatActivity {
        dd=mDay;
         mm=mMonth;
         yy=mYear;
+        cur_date=String.valueOf(mDay)+"/"+String.valueOf(mMonth+1)+"/"+String.valueOf(mYear) ;
+
 
         // display the current date
         updateDisplay();
@@ -182,9 +192,11 @@ public class InfoScreenActivity extends AppCompatActivity {
 
         Button msg = (Button) findViewById(R.id.msg);
 
+
         msg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 int flag = 0;
 
                              Name = name.getText().toString();
@@ -196,12 +208,12 @@ public class InfoScreenActivity extends AppCompatActivity {
                 Time = time.getText().toString();
                 long x = 10011100011000l;
                 long y = 10001001000101l;
-                long n = x+((long)(rand.nextDouble()*(y-x)));
+                ref_no = x+((long)(rand.nextDouble()*(y-x)));
 
 
 
 
-                String message = "Ref : "+n+",  Name : " + Name +
+                String message = "Ref : "+ref_no+",  Name : " + Name +
                         ",  Address : " + Address +
                         ",  Phone number : " + Phone +
                         ",  Pickup Date : " + Date +
@@ -277,10 +289,12 @@ public class InfoScreenActivity extends AppCompatActivity {
                             "\nProblem : " + problem +
                             "\nInspection Charges : " + cost;
 
+                    saveReceipt();
+
 
                     Intent i = new Intent(InfoScreenActivity.this, Receipt.class);
                     Bundle extras = new Bundle();
-                    extras.putString("UserId" ,String.valueOf(n));
+                    extras.putString("UserId" ,String.valueOf(ref_no));
                     extras.putString("Message",message);
                     i.putExtras(extras);
                     startActivity(i);
@@ -296,6 +310,31 @@ public class InfoScreenActivity extends AppCompatActivity {
 
             }
         });
+
+
+
+    }
+    private void saveReceipt(){
+        ContentValues values = new ContentValues();
+        values.put(DbContract.DbEntry.COLUMN_REF, ref_no);
+        values.put(DbContract.DbEntry.COLUMN_DEVICE, device_issue);
+        values.put(DbContract.DbEntry.COLUMN_ISSUE, problem);
+        values.put(DbContract.DbEntry.COLUMN_DATE, cur_date);
+                   // This is a NEW pet, so insert a new pet into the provider,
+            // returning the content URI for the new pet.
+            Uri newUri = getContentResolver().insert(DbContract.DbEntry.CONTENT_URI, values);
+
+            // Show a toast message depending on whether or not the insertion was successful.
+            if (newUri == null) {
+                // If the new content URI is null, then there was an error with insertion.
+                Toast.makeText(this, "Error while saving",
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                // Otherwise, the insertion was successful and we can display a toast.
+                Toast.makeText(this, "Recipt saved",
+                        Toast.LENGTH_SHORT).show();
+            }
+
     }
 
 
@@ -413,6 +452,7 @@ public class InfoScreenActivity extends AppCompatActivity {
         }
 
     }
+
 
 }
 
