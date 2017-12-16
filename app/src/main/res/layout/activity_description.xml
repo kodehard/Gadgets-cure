@@ -6,6 +6,34 @@
     android:layout_height="match_parent"
     tools:context="com.gadgetscure.gadgetscure.DescriptionActivity">
 
+
+    <RelativeLayout
+        android:id="@+id/emptyview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+        <TextView
+            android:id="@+id/no_connect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="No Internet Connection"/>
+        <Button
+            android:id="@+id/try_again"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/no_connect"
+            android:layout_centerHorizontal="true"
+            android:text="Try Again"
+            />
+
+
+    </RelativeLayout>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/lin">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/Bookingtoolbar"
         android:layout_width="match_parent"
@@ -141,4 +169,5 @@
     android:focusable="false"/>
         </RelativeLayout>
 </ScrollView>
+    </RelativeLayout>
 </RelativeLayout>

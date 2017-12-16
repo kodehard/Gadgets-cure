@@ -21,7 +21,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,10 +40,16 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.HashMap;
-
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 
 public class MainActivity extends AppCompatActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener{
@@ -67,12 +75,57 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
     private ImageView nav_dp;
     private static Uri downloadUrl;
     private static  String url="";
+    private boolean internetConnectionAvailable(int timeOut) {
+        InetAddress inetAddress = null;
+        try {
+            Future<InetAddress> future = Executors.newSingleThreadExecutor().submit(new Callable<InetAddress>() {
+                @Override
+                public InetAddress call() {
+                    try {
+                        return InetAddress.getByName("google.com");
+                    } catch (UnknownHostException e) {
+                        return null;
+                    }
+                }
+            });
+            inetAddress = future.get(timeOut, TimeUnit.MILLISECONDS);
+            future.cancel(true);
+        } catch (InterruptedException e) {
+        } catch (ExecutionException e) {
+        } catch (TimeoutException e) {
+        }
+        return inetAddress!=null && !inetAddress.equals("");
+    }
+
+
+
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+
+        if(!internetConnectionAvailable(7000)){
+
+            RelativeLayout noConnect =(RelativeLayout)findViewById(R.id.emptyview);
+            RelativeLayout yesConnect =(RelativeLayout)findViewById(R.id.lin);
+            yesConnect.setVisibility(View.INVISIBLE);
+            noConnect.setVisibility(View.VISIBLE);
+            Button tryAgain=(Button)findViewById(R.id.try_again);
+            tryAgain.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i=new Intent(MainActivity.this,MainActivity.class);
+                    startActivity(i);
+                }
+            });
+
+
+        }
 
 
 
@@ -84,176 +137,152 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
 
-        final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+            final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
 
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-
-
-        // drawerLayout =(DrawerLayout) findViewById(R.id.drawer);
-       // toggle= new ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close);
-       // drawerLayout.addDrawerListener(toggle);
+            drawerLayout.addDrawerListener(toggle);
+            toggle.syncState();
 
 
-      // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        NavigationView nv =(NavigationView) findViewById(R.id.nav);
-        View hView =  nv.getHeaderView(0);
-        nav_user = (TextView)hView.findViewById(R.id.profile_name);
-        nav_mail = (TextView)hView.findViewById(R.id.email);
-        nav_picker = (TextView)hView.findViewById(R.id.picker);
-
-        nav_dp=(ImageView)hView.findViewById(R.id.dp);
-
-        SharedPreferences myPrefrence = getPreferences(MODE_PRIVATE);
-        String imageS = myPrefrence.getString("imagePreferance", "");
-        Bitmap imageB;
-        if(!imageS.equals("")) {
-            imageB = decodeToBase64(imageS);
-            nav_dp.setImageBitmap(imageB);
-        }
+            // drawerLayout =(DrawerLayout) findViewById(R.id.drawer);
+            // toggle= new ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close);
+            // drawerLayout.addDrawerListener(toggle);
 
 
+            // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            //getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-    mFirebaseStorage = FirebaseStorage.getInstance();
-        mStorageReference = mFirebaseStorage.getReference().child("profile_pics");
 
+            NavigationView nv = (NavigationView) findViewById(R.id.nav);
+            View hView = nv.getHeaderView(0);
+            nav_user = (TextView) hView.findViewById(R.id.profile_name);
+            nav_mail = (TextView) hView.findViewById(R.id.email);
+            nav_picker = (TextView) hView.findViewById(R.id.picker);
 
-        nav_picker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/jpeg");
-                intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-                startActivityForResult(Intent.createChooser(intent, "Complete action using"), RC_PHOTO_PICKER);
+            nav_dp = (ImageView) hView.findViewById(R.id.dp);
 
+            SharedPreferences myPrefrence = getPreferences(MODE_PRIVATE);
+            String imageS = myPrefrence.getString("imagePreferance", "");
+            Bitmap imageB;
+            if (!imageS.equals("")) {
+                imageB = decodeToBase64(imageS);
+                nav_dp.setImageBitmap(imageB);
             }
-        });
 
 
-        nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id =item.getItemId();
-                if(id==R.id.sign_out)
-                AuthUI.getInstance().signOut(MainActivity.this);
-                else if(id == R.id.contact) {
-                    Toast.makeText(MainActivity.this, mUsername+" It's Under Construction " , Toast.LENGTH_SHORT).show();
+
+
+
+            mFirebaseStorage = FirebaseStorage.getInstance();
+            mStorageReference = mFirebaseStorage.getReference().child("profile_pics");
+
+
+            nav_picker.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                    intent.setType("image/jpeg");
+                    intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+                    startActivityForResult(Intent.createChooser(intent, "Complete action using"), RC_PHOTO_PICKER);
 
                 }
-                else if(id== R.id.rate)
-                    Toast.makeText(MainActivity.this, mUsername+" It's Under Construction " , Toast.LENGTH_SHORT).show();
-                else if(id == R.id.history)
-                {
-                    Intent i = new Intent(MainActivity.this,OrderActivity.class);
-                    startActivity(i);
+            });
+
+
+            nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    int id = item.getItemId();
+                    if (id == R.id.sign_out)
+                        AuthUI.getInstance().signOut(MainActivity.this);
+                    else if (id == R.id.contact) {
+                        Toast.makeText(MainActivity.this, mUsername + " It's Under Construction ", Toast.LENGTH_SHORT).show();
+
+                    } else if (id == R.id.rate)
+                        Toast.makeText(MainActivity.this, mUsername + " It's Under Construction ", Toast.LENGTH_SHORT).show();
+                    else if (id == R.id.history) {
+                        Intent i = new Intent(MainActivity.this, OrderActivity.class);
+                        startActivity(i);
+                    }
+
+
+                    drawerLayout.closeDrawers();
+
+                    return true;
                 }
+            });
 
 
-                drawerLayout.closeDrawers();
+            mDemoSlider = (SliderLayout) findViewById(R.id.slider);
+            HashMap<String, Integer> file_maps = new HashMap<String, Integer>();
+            file_maps.put("Refer and earn ", R.drawable.refer);
+            file_maps.put("Flat 25% discount", R.drawable.discount);
+            file_maps.put("Permium Services", R.drawable.premium);
+            file_maps.put("Low Charges", R.drawable.lowprice);
+            for (String name : file_maps.keySet()) {
+                TextSliderView textSliderView = new TextSliderView(this);
+                // initialize a SliderLayout
+                textSliderView
+                        .description(name)
+                        .image(file_maps.get(name))
+                        .setScaleType(BaseSliderView.ScaleType.Fit)
+                        .setOnSliderClickListener(this);
 
-                return true;
+                //add your extra information
+                textSliderView.bundle(new Bundle());
+                textSliderView.getBundle()
+                        .putString("extra", name);
+
+                mDemoSlider.addSlider(textSliderView);
             }
-        });
+            mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
+            mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+            mDemoSlider.setCustomAnimation(new DescriptionAnimation());
+            mDemoSlider.setDuration(3000);
+            mDemoSlider.addOnPageChangeListener(this);
 
 
+            mFirebaseAuth = FirebaseAuth.getInstance();
+            mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+                @Override
+                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+                    FirebaseUser user = firebaseAuth.getCurrentUser();
+                    if (user != null) {
+                        // User is signed in
+                        mUsername = user.getDisplayName();
+                        memail = user.getEmail();
+                        nav_user.setText(mUsername);
+                        nav_mail.setText(memail);
 
 
+                    } else {
+                        // User is signed out
+                        mUsername = "Anonymous";
+                        memail = "abc@xyz.com";
+                        nav_user.setText(mUsername);
+                        nav_mail.setText(memail);
 
 
+                        startActivityForResult(
+                                AuthUI.getInstance()
+                                        .createSignInIntentBuilder().setIsSmartLockEnabled(false).setProviders(
+                                        AuthUI.EMAIL_PROVIDER, AuthUI.GOOGLE_PROVIDER).setTheme(R.style.LoginTheme)
+                                        .setLogo(R.mipmap.bg_login).build(), RC_SIGN_IN);
+                    }
 
 
-
-
-        mDemoSlider = (SliderLayout)findViewById(R.id.slider);
-        HashMap<String,Integer> file_maps = new HashMap<String, Integer>();
-        file_maps.put("Refer and earn ",R.drawable.refer);
-        file_maps.put("Flat 25% discount",R.drawable.discount);
-        file_maps.put("Permium Services",R.drawable.premium);
-        file_maps.put("Low Charges", R.drawable.lowprice);
-        for(String name : file_maps.keySet()){
-            TextSliderView textSliderView = new TextSliderView(this);
-            // initialize a SliderLayout
-            textSliderView
-                    .description(name)
-                    .image(file_maps.get(name))
-                    .setScaleType(BaseSliderView.ScaleType.Fit)
-                    .setOnSliderClickListener(this);
-
-            //add your extra information
-            textSliderView.bundle(new Bundle());
-            textSliderView.getBundle()
-                    .putString("extra",name);
-
-            mDemoSlider.addSlider(textSliderView);
-        }
-        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
-        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-        mDemoSlider.setCustomAnimation(new DescriptionAnimation());
-        mDemoSlider.setDuration(3000);
-        mDemoSlider.addOnPageChangeListener(this);
-
-
-
-
-
-
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    mUsername=user.getDisplayName();
-                    memail=user.getEmail();
-                    nav_user.setText(mUsername);
-                    nav_mail.setText(memail);
-
-
-                } else {
-                    // User is signed out
-                     mUsername="Anonymous";
-                    memail="abc@xyz.com";
-                    nav_user.setText(mUsername);
-                    nav_mail.setText(memail);
-
-
-
-                    startActivityForResult(
-                            AuthUI.getInstance()
-                                    .createSignInIntentBuilder().setIsSmartLockEnabled(false).setProviders(
-                                    AuthUI.EMAIL_PROVIDER, AuthUI.GOOGLE_PROVIDER).setTheme(R.style.LoginTheme)
-                                    .setLogo(R.mipmap.bg_login).build(), RC_SIGN_IN);
                 }
+            };
 
+            recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
-            }
-        };
+            layoutManager = new LinearLayoutManager(this);
+            recyclerView.setLayoutManager(layoutManager);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-        adapter = new RecyclerAdapter();
-        recyclerView.setAdapter(adapter);
-
-
-
-
-
-
-
-
-
-
-
-
+            adapter = new RecyclerAdapter();
+            recyclerView.setAdapter(adapter);
 
 
 
@@ -346,9 +375,6 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
                 catch (FileNotFoundException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
                 }
                /* Uri selectedImageUri = data.getData();
 
@@ -381,6 +407,7 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
     protected void onResume() {
         super.onResume();
 
+
         mFirebaseAuth.addAuthStateListener(mAuthStateListener);
 
     }
@@ -398,7 +425,7 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
 
         super.onPause();
 
-            mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
+        mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
 
 
     }

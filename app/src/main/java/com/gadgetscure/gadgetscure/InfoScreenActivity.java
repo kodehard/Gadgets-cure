@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -29,9 +30,16 @@ import com.gadgetscure.gadgetscure.data.DbContract;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Calendar;
 import java.util.Random;
-
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 
 public class InfoScreenActivity extends AppCompatActivity{
@@ -56,6 +64,28 @@ public class InfoScreenActivity extends AppCompatActivity{
     String username = MainActivity.getMyString();
     private static final int EXISTING_PET_LOADER = 0;
     private static long ref_no;
+    private boolean internetConnectionAvailable(int timeOut) {
+        InetAddress inetAddress = null;
+        try {
+            Future<InetAddress> future = Executors.newSingleThreadExecutor().submit(new Callable<InetAddress>() {
+                @Override
+                public InetAddress call() {
+                    try {
+                        return InetAddress.getByName("google.com");
+                    } catch (UnknownHostException e) {
+                        return null;
+                    }
+                }
+            });
+            inetAddress = future.get(timeOut, TimeUnit.MILLISECONDS);
+            future.cancel(true);
+        } catch (InterruptedException e) {
+        } catch (ExecutionException e) {
+        } catch (TimeoutException e) {
+        }
+        return inetAddress!=null && !inetAddress.equals("");
+    }
+
 
 
 
@@ -68,6 +98,25 @@ public class InfoScreenActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_info_screen);
+
+        if(!internetConnectionAvailable(7000)){
+
+            RelativeLayout noConnect =(RelativeLayout)findViewById(R.id.emptyview);
+            RelativeLayout yesConnect =(RelativeLayout)findViewById(R.id.lin);
+            yesConnect.setVisibility(View.INVISIBLE);
+            noConnect.setVisibility(View.VISIBLE);
+            Button tryAgain=(Button)findViewById(R.id.try_again);
+            tryAgain.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i=new Intent(InfoScreenActivity.this,MainActivity.class);
+                    startActivity(i);
+                }
+            });
+
+
+        }
+
         Toolbar toolbar;
         toolbar = (Toolbar) findViewById(R.id.infotoolbar);
         toolbar.setTitle("Booking Info");
@@ -196,73 +245,83 @@ public class InfoScreenActivity extends AppCompatActivity{
         msg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!internetConnectionAvailable(7000)){
 
-                int flag = 0;
+                    RelativeLayout noConnect =(RelativeLayout)findViewById(R.id.emptyview);
+                    RelativeLayout yesConnect =(RelativeLayout)findViewById(R.id.lin);
+                    yesConnect.setVisibility(View.INVISIBLE);
+                    noConnect.setVisibility(View.VISIBLE);
+                    Button tryAgain=(Button)findViewById(R.id.try_again);
+                    tryAgain.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent i=new Intent(InfoScreenActivity.this,MainActivity.class);
+                            startActivity(i);
+                        }
+                    });
 
-                             Name = name.getText().toString();
-
-                 Address = address.getText().toString();
-                 Phone = phone.getText().toString();
-
-                Date= mPickDate.getText().toString();
-                Time = time.getText().toString();
-                long x = 10011100011000l;
-                long y = 10001001000101l;
-                ref_no = x+((long)(rand.nextDouble()*(y-x)));
-
-
-
-
-                String message = "Ref : "+ref_no+",  Name : " + Name +
-                        ",  Address : " + Address +
-                        ",  Phone number : " + Phone +
-                        ",  Pickup Date : " + Date +
-                        ",  Pickup Time : " + Time +
-                        ",  Device/Problem : " + device_issue +
-                        ",  Problem : " + problem +
-                        ",  Inspection Charges : " + cost+
-                        ",  Description : "+description;
-
-                if (TextUtils.isEmpty(Name) || TextUtils.isEmpty(Address) || TextUtils.isEmpty(Phone) || TextUtils.isEmpty(Date) || TextUtils.isEmpty(Time)) {
-
-                    Snackbar.make(v, "                !!   Please Fill All The Fields   !! ",
-                            Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                    flag=1;
-                }
-
-               else if (!TextUtils.isDigitsOnly(Phone) || (Phone.length()!=10))
-                {
-                    Snackbar.make(v, "                !!   Please Enter a Valid Number   !! ",
-                            Snackbar.LENGTH_LONG).setAction("Action", null).show();
-
-
-
-                    flag=1;
-                }
-                else if(!Name.matches("^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$")){
-                    flag=1;
-                    Snackbar.make(v, "                !!   Please Enter a Valid Name   !! ",
-                            Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
 
                 }
-
-                 if(d==1)
-                {
-
-                    Snackbar.make(v, "                !!   Please Enter a Valid Date  !! ",
-                            Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                }
-                 if(t==1)
-                {
-
-                    Snackbar.make(v, "                !!   Please Enter a Valid Time  !! ",
-                            Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                }
+                else {
 
 
+                    int flag = 0;
 
-                if(flag==0 && t==0 && d==0) {
+                    Name = name.getText().toString();
+
+                    Address = address.getText().toString();
+                    Phone = phone.getText().toString();
+
+                    Date = mPickDate.getText().toString();
+                    Time = time.getText().toString();
+                    long x = 10011100011000l;
+                    long y = 10001001000101l;
+                    ref_no = x + ((long) (rand.nextDouble() * (y - x)));
+
+
+                    String message = "Ref : " + ref_no + ",  Name : " + Name +
+                            ",  Address : " + Address +
+                            ",  Phone number : " + Phone +
+                            ",  Pickup Date : " + Date +
+                            ",  Pickup Time : " + Time +
+                            ",  Device/Problem : " + device_issue +
+                            ",  Problem : " + problem +
+                            ",  Inspection Charges : " + cost +
+                            ",  Description : " + description;
+
+                    if (TextUtils.isEmpty(Name) || TextUtils.isEmpty(Address) || TextUtils.isEmpty(Phone) || TextUtils.isEmpty(Date) || TextUtils.isEmpty(Time)) {
+
+                        Snackbar.make(v, "                !!   Please Fill All The Fields   !! ",
+                                Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        flag = 1;
+                    } else if (!TextUtils.isDigitsOnly(Phone) || (Phone.length() != 10)) {
+                        Snackbar.make(v, "                !!   Please Enter a Valid Number   !! ",
+                                Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
+
+                        flag = 1;
+                    } else if (!Name.matches("^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$")) {
+                        flag = 1;
+                        Snackbar.make(v, "                !!   Please Enter a Valid Name   !! ",
+                                Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
+
+                    }
+
+                    if (d == 1) {
+
+                        Snackbar.make(v, "                !!   Please Enter a Valid Date  !! ",
+                                Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    }
+                    if (t == 1) {
+
+                        Snackbar.make(v, "                !!   Please Enter a Valid Time  !! ",
+                                Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    }
+
+
+                    if (flag == 0 && t == 0 && d == 0) {
                    /* Intent i = new Intent(Intent.ACTION_SENDTO);
                     i.setData(Uri.parse("mailto:"));
 
@@ -273,38 +332,34 @@ public class InfoScreenActivity extends AppCompatActivity{
                     if (i.resolveActivity(getPackageManager()) != null) {
                         startActivity(i);
                     }*/
-                    Toast.makeText(InfoScreenActivity.this, "!!   Your appointment has been booked   !!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(InfoScreenActivity.this, "!!   Your appointment has been booked   !!", Toast.LENGTH_SHORT).show();
 
 
-                    mDatabaseReference.push().setValue(message);
+                        mDatabaseReference.push().setValue(message);
 
-                    //FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
-                   // Toast.makeText(InfoScreenActivity.this, "" + currentFirebaseUser.getUid(), Toast.LENGTH_SHORT).show();
-                    message = "Name : " + Name +
-                            "\nAddress : " + Address +
-                            "\nPhone number : " + Phone +
-                            "\nPickup Date : " + Date +
-                            "\nPickup Time : " + Time +
-                            "\nDevice/Problem : " + device_issue +
-                            "\nProblem : " + problem +
-                            "\nInspection Charges : " + cost;
+                        //FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
+                        // Toast.makeText(InfoScreenActivity.this, "" + currentFirebaseUser.getUid(), Toast.LENGTH_SHORT).show();
+                        message = "Name : " + Name +
+                                "\nAddress : " + Address +
+                                "\nPhone number : " + Phone +
+                                "\nPickup Date : " + Date +
+                                "\nPickup Time : " + Time +
+                                "\nDevice/Problem : " + device_issue +
+                                "\nProblem : " + problem +
+                                "\nInspection Charges : " + cost;
 
-                    saveReceipt();
-
-
-                    Intent i = new Intent(InfoScreenActivity.this, Receipt.class);
-                    Bundle extras = new Bundle();
-                    extras.putString("UserId" ,String.valueOf(ref_no));
-                    extras.putString("Message",message);
-                    i.putExtras(extras);
-                    startActivity(i);
+                        saveReceipt();
 
 
+                        Intent i = new Intent(InfoScreenActivity.this, Receipt.class);
+                        Bundle extras = new Bundle();
+                        extras.putString("UserId", String.valueOf(ref_no));
+                        extras.putString("Message", message);
+                        i.putExtras(extras);
+                        startActivity(i);
 
 
-
-
-
+                    }
                 }
 
 
@@ -452,7 +507,6 @@ public class InfoScreenActivity extends AppCompatActivity{
         }
 
     }
-
 
 }
 
