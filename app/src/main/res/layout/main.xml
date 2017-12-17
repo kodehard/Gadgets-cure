@@ -17,7 +17,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="No Internet Connection"/>
+            android:text="No Internet Connection"
+            android:textSize="16sp"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"/>
         <Button
             android:id="@+id/try_again"
             android:layout_width="wrap_content"
@@ -25,7 +27,8 @@
             android:layout_below="@+id/no_connect"
             android:layout_centerHorizontal="true"
             android:text="Try Again"
-            />
+            android:textAppearance="@android:style/TextAppearance.Holo.Medium"/>
+
 
 
     </RelativeLayout>

@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/Bookingtoolbar"
         android:layout_marginTop="61dp"
-        android:text=" Your Booking is succesful !!"
+        android:text=" Your Booking is succesful !"
         android:layout_centerHorizontal="true"
         android:textColor="@color/black"
         android:textSize="20sp"

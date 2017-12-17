@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gadgetscure.gadgetscure">
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -8,13 +9,10 @@
         android:icon="@drawable/icon"
         android:label="Gadgets Cure"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        >
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".IssuesActivity"
@@ -37,13 +35,25 @@
         <activity
             android:name=".Receipt"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".OrderActivity"
-            android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".OrderActivity"
+            android:parentActivityName=".MainActivity" />
+
         <provider
             android:name=".data.DbProvider"
             android:authorities="com.gadgetscure.gadgetscure"
             android:exported="false" />
 
+        <activity android:name=".SplashActivity"
+            android:theme="@style/SplashTheme">
+
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
