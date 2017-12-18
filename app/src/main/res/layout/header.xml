@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="182dp"
-    android:background="@mipmap/heading1"
+    android:background="@drawable/head_bg"
     android:weightSum="1"
     tools:context="com.gadgetscure.gadgetscure.MainActivity">
 
@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/picker"
-        android:text="update Dp"
+        android:text="Update Dp"
         android:textStyle="italic"
         android:textAllCaps="false"
         android:textSize="12sp"
@@ -35,7 +35,7 @@
         android:textColor="@color/white"
         android:clickable="true"
         android:layout_below="@id/dp"
-        android:layout_marginTop="1.5dp"
+        android:layout_marginTop="2dp"
             android:padding="4.5dp"
 
         />
@@ -50,10 +50,10 @@
         android:text=" Arya Stark "
         android:textStyle="bold"
         android:textSize="15sp"
+        android:textColor="#212121"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="15dp"
         android:layout_marginBottom="0dp"
-        android:textColor="@color/white"
         android:layout_below="@+id/picker"
         />
         <!--android:background="#D7CCC8" -->

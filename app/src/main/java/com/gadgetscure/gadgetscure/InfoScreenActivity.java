@@ -5,9 +5,11 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -207,9 +209,16 @@ public class InfoScreenActivity extends AppCompatActivity{
         name = (EditText) findViewById(R.id.user_name);
         address = (EditText) findViewById(R.id.address);
         phone = (EditText) findViewById(R.id.phone_num);
+        final     SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+
+
+        Phone=sp.getString("Phone","");
+        Address=sp.getString("Address","");
 
 
         name.setText(username);
+        address.setText(Address);
+        phone.setText(Phone);
         name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -272,6 +281,11 @@ public class InfoScreenActivity extends AppCompatActivity{
 
                     Address = address.getText().toString();
                     Phone = phone.getText().toString();
+
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putString("Phone", Phone);
+                    editor.putString("Address",Address);
+                    editor.commit();
 
                     Date = mPickDate.getText().toString();
                     Time = time.getText().toString();
@@ -408,13 +422,10 @@ public class InfoScreenActivity extends AppCompatActivity{
 
     //update month day year
     private void updateDisplay() {
-            if(mDay<dd || mMonth<mm || mYear<yy) {
-                d=1;
-            mPickDate.setText("Enter a valid Date");
-            Toast.makeText(this, "Unfortunately we don't have a time machine !!", Toast.LENGTH_SHORT).show();
-        }
-        else {
-                d=0;
+        if(mYear>yy)
+        {
+            if(mYear==yy+1) {
+                d = 0;
                 mPickDate.setText(//this is the edit text where you want to show the selected date
                         new StringBuilder()
                                 // Month is 0 based so add 1
@@ -422,11 +433,30 @@ public class InfoScreenActivity extends AppCompatActivity{
                                 .append(mMonth + 1).append("-")
                                 .append(mYear).append(""));
             }
+            else {
+                d = 1;
+                mPickDate.setText("Enter a valid Date");
+                Toast.makeText(this, "Unfortunately we don't have a time machine !!", Toast.LENGTH_SHORT).show();
 
+            }
 
-        //.append(mMonth + 1).append("-")
-        //.append(mDay).append("-")
-        //.append(mYear).append(" "));
+        }
+        else {
+            if (mDay < dd || mMonth < mm || mYear < yy) {
+                d = 1;
+                mPickDate.setText("Enter a valid Date");
+                Toast.makeText(this, "Unfortunately we don't have a time machine !!", Toast.LENGTH_SHORT).show();
+            } else {
+                d = 0;
+                mPickDate.setText(//this is the edit text where you want to show the selected date
+                        new StringBuilder()
+                                // Month is 0 based so add 1
+                                .append(mDay).append("-")
+                                .append(mMonth + 1).append("-")
+                                .append(mYear).append(""));
+            }
+        }
+
     }
 
 

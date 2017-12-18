@@ -70,10 +70,14 @@ public class IssuesActivity extends AppCompatActivity {
             yesConnect.setVisibility(View.INVISIBLE);
             noConnect.setVisibility(View.VISIBLE);
             Button tryAgain=(Button)findViewById(R.id.try_again);
+
             tryAgain.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+
                     Intent i=new Intent(IssuesActivity.this,MainActivity.class);
+
                     startActivity(i);
                 }
             });

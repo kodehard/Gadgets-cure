@@ -374,13 +374,13 @@
         <Button
             android:id="@+id/msg"
 
-            android:layout_width="70dp"
-            android:layout_height="75dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="32dp"
             android:layout_marginTop="21dp"
             android:layout_marginBottom="2dp"
             android:background="@drawable/send"
-            android:backgroundTint="#6D4C41"
+            android:backgroundTint="#2196F3"
             android:shadowDx="0"
             android:shadowDy="0"
             android:shadowRadius="5"

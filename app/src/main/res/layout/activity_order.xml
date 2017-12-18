@@ -36,10 +36,10 @@
 
         <ImageView
             android:id="@+id/empty_shelter_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_empty_shelter"/>
+            android:src="@drawable/no_messages"/>
 
         <TextView
             android:id="@+id/empty_title_text"
@@ -48,8 +48,8 @@
             android:layout_below="@+id/empty_shelter_image"
             android:layout_centerHorizontal="true"
             android:fontFamily="sans-serif-medium"
-            android:paddingTop="16dp"
             android:text="No Service Request to show"
+            android:paddingLeft="16dp"
             android:textAppearance="?android:textAppearanceMedium"/>
 
        </RelativeLayout>
