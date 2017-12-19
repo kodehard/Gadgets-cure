@@ -43,13 +43,20 @@
         app:theme="@style/ThemeOverlay.AppCompat"
 
         />
-
+        <RelativeLayout
+            android:layout_width="320dp"
+            android:layout_height="450dp"
+            android:layout_marginTop="40dp"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_below="@+id/Bookingtoolbar"
+            android:background="@drawable/customborder"
+            >
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Bookingtoolbar"
-        android:layout_marginTop="61dp"
+        android:layout_marginTop="41dp"
         android:text=" Your Booking is succesful !"
         android:layout_centerHorizontal="true"
         android:textColor="@color/black"
@@ -72,7 +79,8 @@
         android:orientation="horizontal"
         android:layout_below="@+id/tick"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="36dp">
+        android:layout_marginLeft="36dp"
+        >
 
         <TextView
             android:id="@+id/textView2"
@@ -121,3 +129,4 @@
 
 </RelativeLayout>
 </RelativeLayout>
+    </RelativeLayout>

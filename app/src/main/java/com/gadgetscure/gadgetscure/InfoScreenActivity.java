@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -11,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -22,6 +25,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -46,6 +50,7 @@ import java.util.concurrent.TimeoutException;
 
 public class InfoScreenActivity extends AppCompatActivity{
     public String  cost,description,Date,Time,ampm;
+    public TextView Description;
     private static String device_issue, problem;
     private static  String cur_date;
     private FirebaseDatabase mFirebaseDatabase;
@@ -143,6 +148,7 @@ public class InfoScreenActivity extends AppCompatActivity{
 
         problem = extras.getString("Problem");
         cost = extras.getString("Price");
+        if(extras.getString("Description")!=null)
         description = extras.getString("Description");
 
         TextView deviceissue = (TextView) findViewById(R.id.problem);
@@ -151,8 +157,7 @@ public class InfoScreenActivity extends AppCompatActivity{
         deviceissue.setText(device_issue);
         problem_type.setText(problem);
         price.setText(cost);
-        final TextView Description = (TextView) findViewById(R.id.description);
-        Description.setText(description);
+
 
         mPickDate = (EditText) findViewById(R.id.mPickDate);//button for showing date picker dialog
         mPickDate.setOnClickListener(new View.OnClickListener() {
@@ -192,13 +197,9 @@ public class InfoScreenActivity extends AppCompatActivity{
         add.setOnClickListener(new View.OnClickListener() {
                                    @Override
                                    public void onClick(View view) {
-                                       Intent n= new Intent(InfoScreenActivity.this,DescriptionActivity.class);
-                                       Bundle extras = new Bundle();
-                                       extras.putString("Issue",device_issue);
-                                       extras.putString("Problem",problem);
-                                       extras.putString("Price",cost);
-                                       n.putExtras(extras);
-                                       startActivity(n);
+
+                                       buildDialog(InfoScreenActivity.this).show();
+
                                    }
                                }
 
@@ -336,23 +337,11 @@ public class InfoScreenActivity extends AppCompatActivity{
 
 
                     if (flag == 0 && t == 0 && d == 0) {
-                   /* Intent i = new Intent(Intent.ACTION_SENDTO);
-                    i.setData(Uri.parse("mailto:"));
-
-                    i.putExtra(Intent.EXTRA_EMAIL, new String[]{"sysadmin@gadgetscure.com"});
-                    i.putExtra(Intent.EXTRA_SUBJECT, device_issue + " : " + problem);
-                    i.putExtra(Intent.EXTRA_TEXT, message);
-                    startActivity(Intent.createChooser(i, "Send Email"));
-                    if (i.resolveActivity(getPackageManager()) != null) {
-                        startActivity(i);
-                    }*/
                         Toast.makeText(InfoScreenActivity.this, "!!   Your appointment has been booked   !!", Toast.LENGTH_SHORT).show();
 
 
                         mDatabaseReference.push().setValue(message);
 
-                        //FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
-                        // Toast.makeText(InfoScreenActivity.this, "" + currentFirebaseUser.getUid(), Toast.LENGTH_SHORT).show();
                         message = "Name : " + Name +
                                 "\nAddress : " + Address +
                                 "\nPhone number : " + Phone +
@@ -389,9 +378,7 @@ public class InfoScreenActivity extends AppCompatActivity{
         values.put(DbContract.DbEntry.COLUMN_DEVICE, device_issue);
         values.put(DbContract.DbEntry.COLUMN_ISSUE, problem);
         values.put(DbContract.DbEntry.COLUMN_DATE, cur_date);
-                   // This is a NEW pet, so insert a new pet into the provider,
-            // returning the content URI for the new pet.
-            Uri newUri = getContentResolver().insert(DbContract.DbEntry.CONTENT_URI, values);
+                    Uri newUri = getContentResolver().insert(DbContract.DbEntry.CONTENT_URI, values);
 
             // Show a toast message depending on whether or not the insertion was successful.
             if (newUri == null) {
@@ -537,6 +524,37 @@ public class InfoScreenActivity extends AppCompatActivity{
         }
 
     }
+    public AlertDialog.Builder buildDialog(Context c) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(c,R.style.DialogTheme);
+        builder.setTitle("Add Description");
+        final EditText input = new EditText(InfoScreenActivity.this);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+                input.setLayoutParams(lp);
+        builder.setView(input);
+
+        builder.setPositiveButton("ADD", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                description=input.getText().toString();
+                Description= (TextView) findViewById(R.id.description);
+                Description.setText(description);
+
+            }
+        });
+        builder.setNegativeButton("CANCEL",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+        return builder;
+    }
+
 
 }
 
