@@ -215,6 +215,10 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
                         startActivity(intent);
 
                     }
+                    else if(id==R.id.how){
+                        Intent i = new Intent(MainActivity.this, ScreenSlidePagerActivity.class);
+                        startActivity(i);
+                    }
 
 
                     drawerLayout.closeDrawers();

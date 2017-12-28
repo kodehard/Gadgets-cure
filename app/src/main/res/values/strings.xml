@@ -11,4 +11,5 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="bookingguide">You can have a look at your booking history by clicking on the booking history menu item.</string>
 </resources>

@@ -1,0 +1,24 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFD54F">
+        <ImageView
+            android:id="@+id/im1"
+            android:layout_width="250dp"
+            android:layout_height="200dp"
+            android:background="@drawable/frag1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"/>
+
+    <TextView style="?android:textAppearanceMedium"
+        android:padding="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Device to be Inspected "
+        android:layout_centerInParent="true"
+        android:textColor="@color/black"
+        android:layout_below="@+id/im1"/>
+
+
+</RelativeLayout>
