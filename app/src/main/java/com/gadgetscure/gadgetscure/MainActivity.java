@@ -204,6 +204,16 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
                     else if (id == R.id.history) {
                         Intent i = new Intent(MainActivity.this, OrderActivity.class);
                         startActivity(i);
+                    }else if(id==R.id.home)
+                    {
+                        Intent i = new Intent(MainActivity.this, MainActivity.class);
+                        startActivity(i);
+                    }
+                    else if(id==R.id.callbook){
+                        Intent intent = new Intent(Intent.ACTION_DIAL);
+                        intent.setData(Uri.parse("tel:9550822772"));
+                        startActivity(intent);
+
                     }
 
 

@@ -3,15 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="182dp"
+    android:layout_height="163dp"
     android:background="@drawable/head_bg"
-    android:weightSum="1"
     tools:context="com.gadgetscure.gadgetscure.MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="7dp">
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/dp"
             android:layout_width="85dp"
@@ -51,7 +50,7 @@
         android:textStyle="bold"
         android:textSize="15sp"
         android:textColor="#212121"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="1dp"
         android:layout_marginLeft="15dp"
         android:layout_marginBottom="0dp"
         android:layout_below="@+id/picker"
@@ -65,7 +64,6 @@
         android:text=" rishabh7awasthi@gmail.com "
         android:textColor="@color/black"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="2dp"
         android:layout_below="@+id/profile_name"
         />
     </RelativeLayout>

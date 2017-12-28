@@ -9,11 +9,8 @@
         android:icon="@drawable/gclogofinal"
         android:label="Gadgets Cure"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        >
-        <activity android:name=".MainActivity">
-
-        </activity>
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity"></activity>
         <activity
             android:name=".IssuesActivity"
             android:label="Problems"
@@ -41,10 +38,9 @@
             android:authorities="com.gadgetscure.gadgetscure"
             android:exported="false" />
 
-        <activity android:name=".SplashActivity"
+        <activity
+            android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

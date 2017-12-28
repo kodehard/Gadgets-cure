@@ -21,8 +21,8 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="LoginTheme"  parent="@android:style/Theme.NoTitleBar.Fullscreen">
-             style="?android:attr/progressBarStyleLarge"
+    <style name="LoginTheme" parent="@android:style/Theme.NoTitleBar.Fullscreen">
+        style="?android:attr/progressBarStyleLarge"
 
 
         <item name="colorButtonNormal">@color/colorAccent</item>
@@ -50,11 +50,14 @@
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/background_splash</item>
     </style>
+
     <style name="DialogTheme" parent="android:Theme.Holo.Dialog">
         <item name="android:windowBackground">@drawable/dailog_border</item>
     </style>
 
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
 </resources>

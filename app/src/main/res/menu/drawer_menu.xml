@@ -1,25 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 <group android:id="@+id/group1">
-    <item android:id="@+id/contact"
-        android:title="Contact Us"
-        android:icon="@drawable/conatct"/>
 
-    <item android:id="@+id/history"
-        android:title="Bookings"
-        android:icon="@drawable/review"/>
+    <item android:id="@+id/home"
+        android:title="Home"
+        android:icon="@drawable/ic_home"
+        />
+
+    <item  android:id="@+id/acc"
+        android:title="My Account"
+        android:icon="@drawable/ic_account"
+
+        />
+
+
+    <item android:title="Application">
+        <menu>
+            <item android:id="@+id/history"
+                android:title="Bookings"
+                android:icon="@drawable/ic_bookings"/>
+
+            <item
+                android:id="@+id/callbook"
+                android:icon="@drawable/ic_callbook"
+                android:title="Call to Book" />
+        </menu>
+    </item>
+
+    <item android:title="Communication">
+        <menu>
+            <item android:id="@+id/about"
+                android:title="About Us"
+                android:icon="@drawable/ic_group"/>
+            <item android:id="@+id/contact"
+                android:title="Help"
+                android:icon="@drawable/conatct"/>
 
 
 
-    <item android:id="@+id/rate"
-        android:title="Rate Us"
-        android:icon="@drawable/rate"/>
+        </menu>
+    </item>
+
+
+    <item android:title="Miscellaneous"
+        >
+        <menu>
+            <item android:id="@+id/how"
+                android:title="How it Works"
+                android:icon="@drawable/ic_how"/>
+
+
+            <item android:id="@+id/privacy"
+                android:title="Privacy Policy"
+                android:icon="@drawable/ic_privacy"/>
+
+
+
+
+            <item android:id="@+id/rate"
+                android:title="Rate Us"
+                android:icon="@drawable/rate"/>
+
+
+
+        </menu>
+
+
+    </item>
+
+
+
 
     <item
         android:id="@+id/sign_out"
-        android:title="sign_out"
+        android:title="Log Out"
         android:icon="@drawable/logout"/>
-       <!-- app:showAsAction="never" -->
+
+
+    <!-- app:showAsAction="never" -->
 
 </group>
 
