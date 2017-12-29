@@ -132,6 +132,21 @@ public class InfoScreenActivity extends AppCompatActivity{
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(InfoScreenActivity.this, IssuesActivity.class);
+                // i.putExtra("Issue",names[position]);
+                Bundle extras = new Bundle();
+
+
+                extras.putString("Issue",RecyclerAdapter.getIssue() );
+                extras.putString("Price",RecyclerAdapter.getPrice() );
+                i.putExtras(extras);
+                startActivity(i);
+
+            }
+        });
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
 
@@ -519,6 +534,7 @@ public class InfoScreenActivity extends AppCompatActivity{
                 Intent i = new Intent(this,MainActivity.class);
                 startActivity(i);
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -554,6 +570,20 @@ public class InfoScreenActivity extends AppCompatActivity{
 
         return builder;
     }
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(InfoScreenActivity.this, IssuesActivity.class);
+        // i.putExtra("Issue",names[position]);
+        Bundle extras = new Bundle();
+
+
+        extras.putString("Issue",RecyclerAdapter.getIssue() );
+        extras.putString("Price",RecyclerAdapter.getPrice() );
+        i.putExtras(extras);
+        startActivity(i);
+
+    }
+
 
 
 }

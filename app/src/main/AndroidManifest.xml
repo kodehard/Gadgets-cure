@@ -8,6 +8,8 @@
         android:allowBackup="true"
         android:icon="@drawable/gclogofinal"
         android:label="Gadgets Cure"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity" />
@@ -24,7 +26,7 @@
         <activity
             android:name=".InfoScreenActivity"
             android:label="User Info"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".IssuesActivity" />
         <!-- <activity android:name=".MainActivity"></activity> -->
         <activity
             android:name=".Receipt"
@@ -47,7 +49,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ScreenSlidePagerActivity"></activity>
+        <activity android:name=".ScreenSlidePagerActivity"/>
     </application>
 
 </manifest>

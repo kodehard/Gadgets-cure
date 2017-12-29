@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
-
+private static String issue,price;
 
     Context context;
 
@@ -91,6 +91,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
                     extras.putString("Issue", names[position]);
                     extras.putString("Price", details[position]);
+                    issue=names[position];
+                    price=details[position];
                     i.putExtras(extras);
                     context.startActivity(i);
 
@@ -98,5 +100,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             });
 
         }
+    }
+    public static String getIssue(){
+        return issue;
+    }
+    public static String getPrice(){
+        return price;
     }
 }
